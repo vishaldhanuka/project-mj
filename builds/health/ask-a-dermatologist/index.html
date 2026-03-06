@@ -3,29 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Javatar Health — Ask a Dermatologist</title>
+<title>AskaDoctor — Ask a Dermatologist</title>
 <meta name="description" content="Upload a photo of your skin concern. Get an AI-powered initial assessment and connect with a board-certified dermatologist in minutes.">
-<meta property="og:title" content="Javatar Health — Ask a Dermatologist">
+<meta property="og:title" content="AskaDoctor — Ask a Dermatologist">
 <meta property="og:description" content="Upload a photo of your skin. A board-certified dermatologist will review it — today.">
 <meta property="og:type" content="website">
 <style>
 /* ── DESIGN TOKENS ─────────────────────── */
 :root {
-  --bg: #f0f5ff;
+  --bg: #f0faf7;
   --surface: #ffffff;
-  --card: #e2ecff;
-  --accent: #0066bb;
-  --accent2: #2563eb;
-  --accent-light: rgba(0,102,187,0.08);
+  --card: #e0f5ef;
+  --accent: #00897b;
+  --accent2: #00796b;
+  --accent-light: rgba(0,137,123,0.08);
   --green: #059669;
   --green-light: rgba(5,150,105,0.08);
   --warn: #b45309;
   --warn-light: rgba(180,83,9,0.08);
   --red: #dc2626;
   --red-light: rgba(220,38,38,0.08);
-  --text: #1a2f5e;
-  --muted: #4a6285;
-  --border: rgba(0,30,80,0.12);
+  --text: #1a3a3a;
+  --muted: #4a6565;
+  --border: rgba(0,60,60,0.12);
   --shadow: 0 2px 12px rgba(0,30,80,0.08);
   --shadow-lg: 0 8px 32px rgba(0,30,80,0.12);
   --radius: 14px;
@@ -69,24 +69,11 @@ button { cursor: pointer; font-family: inherit; }
   gap: 8px;
   text-decoration: none;
 }
-.logo-icon {
-  width: 32px; height: 32px;
-  background: var(--accent);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 800;
-  font-size: 16px;
+.logo-img {
+  height: 28px;
+  width: auto;
 }
-.logo-text {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.logo-text span { color: var(--accent); }
+
 .settings-btn {
   width: 36px; height: 36px;
   border-radius: 10px;
@@ -160,7 +147,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* Upload zone */
 .upload-zone {
-  border: 2px dashed rgba(0,102,187,0.3);
+  border: 2px dashed rgba(0,137,123,0.3);
   border-radius: var(--radius);
   background: var(--accent-light);
   padding: 40px 24px;
@@ -171,7 +158,7 @@ button { cursor: pointer; font-family: inherit; }
 }
 .upload-zone:hover, .upload-zone.dragover {
   border-color: var(--accent);
-  background: rgba(0,102,187,0.12);
+  background: rgba(0,137,123,0.12);
 }
 .upload-zone.has-image {
   padding: 12px;
@@ -754,11 +741,10 @@ button { cursor: pointer; font-family: inherit; }
   <!-- ═══ HEADER ═══ -->
   <header class="header">
     <a class="logo" href="#">
-      <div class="logo-icon">J</div>
-      <div class="logo-text"><span>Javatar</span> Health</div>
+      <img class="logo-img" src="https://ww2-secure.justanswer.com/static/javatar/img/health/logo.svg" alt="AskaDoctor">
     </a>
     <button class="settings-btn" onclick="toggleModal()" aria-label="Settings">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
     </button>
   </header>
 
@@ -879,10 +865,10 @@ button { cursor: pointer; font-family: inherit; }
       </div>
       <div class="payment-body">
         <div class="price-row">
-          <span class="price-amount">$1</span>
-          <span class="price-period">7-day trial</span>
+          <span class="price-amount">$5</span>
+          <span class="price-period">one-time</span>
         </div>
-        <p class="price-note">Then $46/month for unlimited expert access · Cancel anytime</p>
+        <p class="price-note">Get started for $5 · Then $59/month for unlimited expert access · Cancel anytime</p>
 
         <div class="form-group">
           <label class="form-label" for="cardName">Name on Card</label>
@@ -903,14 +889,14 @@ button { cursor: pointer; font-family: inherit; }
           </div>
         </div>
 
-        <button class="pay-btn" onclick="handlePayment()">Start My Consultation — $1</button>
+        <button class="pay-btn" onclick="handlePayment()">Start My Consultation — $5</button>
 
         <div class="payment-trust">
           <div class="payment-trust-item">🔒 256-bit SSL</div>
           <div class="payment-trust-item">💰 Money-back guarantee</div>
           <div class="payment-trust-item">🚫 Cancel anytime</div>
         </div>
-        <p class="cancel-note">Your card will be charged $1 today. If you don't cancel within 7 days, your subscription renews at $46/month.</p>
+        <p class="cancel-note">Your card will be charged a one-time fee of $5 today. Your subscription will then renew at $59/month. Cancel anytime.</p>
       </div>
     </div>
   </div>
