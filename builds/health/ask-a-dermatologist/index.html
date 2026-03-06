@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javatar Health — Ask a Dermatologist</title>
+<meta name="description" content="Upload a photo of your skin concern. Get an AI-powered initial assessment and connect with a board-certified dermatologist in minutes.">
+<meta property="og:title" content="Javatar Health — Ask a Dermatologist">
+<meta property="og:description" content="Upload a photo of your skin. A board-certified dermatologist will review it — today.">
+<meta property="og:type" content="website">
+<style>
+/* ── DESIGN TOKENS ─────────────────────── */
+:root {
+  --bg: #f0f5ff;
+  --surface: #ffffff;
+  --card: #e2ecff;
+  --accent: #0066bb;
+  --accent2: #2563eb;
+  --accent-light: rgba(0,102,187,0.08);
+  --green: #059669;
+  --green-light: rgba(5,150,105,0.08);
+  --warn: #b45309;
+  --warn-light: rgba(180,83,9,0.08);
+  --red: #dc2626;
+  --red-light: rgba(220,38,38,0.08);
+  --text: #1a2f5e;
+  --muted: #4a6285;
+  --border: rgba(0,30,80,0.12);
+  --shadow: 0 2px 12px rgba(0,30,80,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,30,80,0.12);
+  --radius: 14px;
+  --transition: 0.32s ease;
+}
+
+/* ── RESET ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+
+/* ── LAYOUT ────────────────────────────── */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 16px;
+}
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.logo-text span { color: var(--accent); }
+.settings-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: background var(--transition);
+}
+.settings-btn:hover { background: var(--card); }
+
+/* ── STEPS (screens) ───────────────────── */
+.step {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 0 32px;
+  animation: fadeUp 0.36s ease;
+}
+.step.active { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── STEP 1: UPLOAD ────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid rgba(5,150,105,0.28);
+  border-radius: 99px;
+  padding: 4px 12px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.hero h1 {
+  font-size: clamp(28px, 7vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  max-width: 380px;
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed rgba(0,102,187,0.3);
+  border-radius: var(--radius);
+  background: var(--accent-light);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  position: relative;
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--accent);
+  background: rgba(0,102,187,0.12);
+}
+.upload-zone.has-image {
+  padding: 12px;
+  border-style: solid;
+  border-color: var(--accent);
+}
+.upload-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 12px;
+  color: var(--accent);
+}
+.upload-text { font-size: 15px; font-weight: 600; color: var(--text); }
+.upload-hint { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.upload-preview {
+  display: none;
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.upload-zone.has-image .upload-preview { display: block; }
+.upload-zone.has-image .upload-placeholder { display: none; }
+.upload-change {
+  display: none;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.upload-zone.has-image .upload-change { display: block; }
+
+.analyze-btn {
+  display: none;
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background var(--transition), transform 0.15s ease;
+}
+.analyze-btn.visible { display: block; }
+.analyze-btn:hover { background: var(--accent2); }
+.analyze-btn:active { transform: scale(0.98); }
+
+.disclaimer {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+/* Trust row */
+.trust-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.trust-icon { font-size: 14px; }
+
+/* ── STEP 2: ANALYZING ─────────────────── */
+.analyzing-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+}
+.analyzing-thumb {
+  width: 120px; height: 120px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+.analyzing-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--card);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.analyzing-text {
+  font-size: 17px;
+  font-weight: 700;
+}
+.analyzing-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: -16px;
+}
+.error-box {
+  display: none;
+  background: var(--red-light);
+  border: 1px solid rgba(220,38,38,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 360px;
+  text-align: left;
+}
+.error-box.visible { display: block; }
+.error-title { font-size: 14px; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+.error-msg { font-size: 13px; color: var(--text); line-height: 1.5; }
+.retry-btn {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── STEP 3: ASSESSMENT ────────────────── */
+.assessment-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+.concern-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 99px;
+  padding: 5px 14px;
+  margin-bottom: 16px;
+}
+.concern-low { background: var(--green-light); color: var(--green); }
+.concern-moderate { background: var(--warn-light); color: var(--warn); }
+.concern-high { background: var(--red-light); color: var(--red); }
+
+.assessment-section { margin-bottom: 16px; }
+.assessment-section:last-child { margin-bottom: 0; }
+.assessment-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.assessment-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.possibilities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.possibility-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--card);
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.possibility-bullet {
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px;
+}
+.possibility-name { font-weight: 600; }
+.possibility-desc { color: var(--muted); font-size: 13px; }
+
+.assessment-thumb-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.assessment-thumb {
+  width: 64px; height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.continue-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background var(--transition), transform 0.15s ease;
+}
+.continue-btn:hover { background: var(--accent2); }
+.continue-btn:active { transform: scale(0.98); }
+
+/* ── STEP 4: FOLLOW-UP QUESTIONS ───────── */
+.progress-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.progress-segment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--card);
+  transition: background var(--transition);
+}
+.progress-segment.filled { background: var(--accent); }
+.progress-segment.current { background: var(--accent2); }
+
+.question-header {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.question-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option-btn {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  transition: border-color var(--transition), background var(--transition);
+}
+.option-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.option-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  font-weight: 600;
+}
+
+.additional-input {
+  margin-top: 16px;
+}
+.additional-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.additional-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  resize: vertical;
+  min-height: 60px;
+  background: var(--surface);
+  transition: border-color var(--transition);
+}
+.additional-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.question-nav {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* ── STEP 5: SUMMARY + PAYMENT ─────────── */
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.summary-thumb {
+  width: 48px; height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+.summary-headline {
+  font-size: 14px;
+  font-weight: 700;
+}
+.summary-concern {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.summary-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.summary-answer-item {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.summary-q { color: var(--muted); font-weight: 500; }
+.summary-a { color: var(--text); font-weight: 600; }
+
+/* Payment section */
+.payment-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.payment-header {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  padding: 20px 24px;
+  color: white;
+  text-align: center;
+}
+.payment-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.payment-subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+}
+.payment-body { padding: 24px; }
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.price-amount {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.price-period {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.price-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color var(--transition);
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background var(--transition), transform 0.15s ease;
+}
+.pay-btn:hover { background: var(--accent2); }
+.pay-btn:active { transform: scale(0.98); }
+
+.payment-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.payment-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cancel-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* ── API KEY MODAL ─────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeUp 0.3s ease;
+}
+.modal h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.modal p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.modal-btn-secondary {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.modal-btn-primary {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+.key-status {
+  font-size: 12px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+.key-status.connected { color: var(--green); }
+.key-status.missing { color: var(--red); }
+
+/* ── CONFIRMATION ──────────────────────── */
+.confirmation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 0;
+}
+.conf-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.conf-title {
+  font-size: 22px;
+  font-weight: 800;
+}
+.conf-text {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+/* ── RESPONSIVE ────────────────────────── */
+@media (min-width: 600px) {
+  .container { padding: 0 32px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- ═══ HEADER ═══ -->
+  <header class="header">
+    <a class="logo" href="#">
+      <div class="logo-icon">J</div>
+      <div class="logo-text"><span>Javatar</span> Health</div>
+    </a>
+    <button class="settings-btn" onclick="toggleModal()" aria-label="Settings">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </header>
+
+  <!-- ═══ STEP 1: UPLOAD ═══ -->
+  <div id="step-upload" class="step active">
+    <div class="hero">
+      <div class="hero-badge"><span class="dot"></span> Dermatologist Available Now</div>
+      <h1>Concerned about <em>your skin?</em></h1>
+      <p class="hero-sub">Upload a photo of your skin concern. Our AI will provide an initial assessment, then connect you with a board-certified dermatologist.</p>
+    </div>
+
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept="image/*" hidden>
+      <div class="upload-placeholder">
+        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <div class="upload-text">Tap to upload a photo</div>
+        <div class="upload-hint">or drag & drop · JPG, PNG up to 10MB</div>
+      </div>
+      <img class="upload-preview" id="uploadPreview" alt="Your uploaded image">
+      <div class="upload-change">Tap to change photo</div>
+    </div>
+
+    <button class="analyze-btn" id="analyzeBtn" onclick="startAnalysis()">
+      Analyze My Skin
+    </button>
+
+    <div class="trust-row">
+      <div class="trust-item"><span class="trust-icon">🔒</span> Private & Secure</div>
+      <div class="trust-item"><span class="trust-icon">⚡</span> Results in seconds</div>
+      <div class="trust-item"><span class="trust-icon">👨‍⚕️</span> Board-certified MDs</div>
+    </div>
+
+    <p class="disclaimer">This AI assessment is not a medical diagnosis. Always consult a licensed healthcare professional for medical advice.</p>
+  </div>
+
+  <!-- ═══ STEP 2: ANALYZING ═══ -->
+  <div id="step-analyzing" class="step">
+    <div class="analyzing-content">
+      <img class="analyzing-thumb" id="analyzingThumb" alt="Uploaded skin photo">
+      <div class="analyzing-spinner" id="analyzeSpinner"></div>
+      <div class="analyzing-text" id="analyzeStatusText">Analyzing your image...</div>
+      <div class="analyzing-sub" id="analyzeSubText">Our AI is reviewing your skin concern</div>
+      <div class="error-box" id="errorBox">
+        <div class="error-title">Analysis Failed</div>
+        <div class="error-msg" id="errorMsg">Something went wrong. Please try again.</div>
+        <button class="retry-btn" onclick="startAnalysis()">Try Again</button>
+        <button class="retry-btn" style="background:transparent;color:var(--text);border:1px solid var(--border);margin-left:8px" onclick="goToStep('upload')">Go Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 3: ASSESSMENT ═══ -->
+  <div id="step-assessment" class="step">
+    <div class="assessment-card">
+      <div class="assessment-thumb-row">
+        <img class="assessment-thumb" id="assessmentThumb" alt="Skin photo">
+        <div>
+          <div class="concern-badge" id="concernBadge">Assessing...</div>
+          <div style="font-size:13px;color:var(--muted)">AI Initial Assessment</div>
+        </div>
+      </div>
+
+      <div class="assessment-section">
+        <div class="assessment-label">What We Observed</div>
+        <div class="assessment-text" id="observationText"></div>
+      </div>
+
+      <div class="assessment-section">
+        <div class="assessment-label">Possible Conditions</div>
+        <ul class="possibilities-list" id="possibilitiesList"></ul>
+      </div>
+
+      <div class="assessment-section">
+        <div class="assessment-label">Recommendation</div>
+        <div class="assessment-text" id="recommendationText"></div>
+      </div>
+    </div>
+
+    <button class="continue-btn" onclick="goToStep('questions')">
+      Continue — Answer a Few Questions for the Doctor
+    </button>
+
+    <p class="disclaimer" style="margin-top:12px">AI-powered screening · Not a diagnosis · Expert review recommended</p>
+  </div>
+
+  <!-- ═══ STEP 4: FOLLOW-UP QUESTIONS ═══ -->
+  <div id="step-questions" class="step">
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="question-header" id="questionHeader">Question 1 of 4</div>
+    <div class="question-text" id="questionText"></div>
+    <div class="options-list" id="optionsList"></div>
+    <div class="additional-input">
+      <label class="additional-label" for="additionalNotes">Anything else to add? (optional)</label>
+      <textarea class="additional-textarea" id="additionalNotes" placeholder="E.g., any recent changes, medications..."></textarea>
+    </div>
+    <div class="question-nav">
+      <button class="continue-btn" id="nextQuestionBtn" onclick="nextQuestion()" disabled>Next</button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 5: SUMMARY + PAYMENT ═══ -->
+  <div id="step-payment" class="step">
+    <div class="summary-card">
+      <div class="summary-header">
+        <img class="summary-thumb" id="summaryThumb" alt="Skin photo">
+        <div>
+          <div class="summary-headline">Your Skin Assessment Summary</div>
+          <div class="summary-concern" id="summaryConcern"></div>
+        </div>
+      </div>
+      <div class="summary-answers" id="summaryAnswers"></div>
+    </div>
+
+    <div class="payment-section">
+      <div class="payment-header">
+        <div class="payment-title">Connect with a Dermatologist</div>
+        <div class="payment-subtitle">A board-certified dermatologist will review your case in minutes</div>
+      </div>
+      <div class="payment-body">
+        <div class="price-row">
+          <span class="price-amount">$1</span>
+          <span class="price-period">7-day trial</span>
+        </div>
+        <p class="price-note">Then $46/month for unlimited expert access · Cancel anytime</p>
+
+        <div class="form-group">
+          <label class="form-label" for="cardName">Name on Card</label>
+          <input class="form-input" id="cardName" type="text" placeholder="John Smith" autocomplete="cc-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cardNumber">Card Number</label>
+          <input class="form-input" id="cardNumber" type="text" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" inputmode="numeric">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="cardExpiry">Expiry</label>
+            <input class="form-input" id="cardExpiry" type="text" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" inputmode="numeric">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cardCvc">CVC</label>
+            <input class="form-input" id="cardCvc" type="text" placeholder="123" maxlength="4" autocomplete="cc-csc" inputmode="numeric">
+          </div>
+        </div>
+
+        <button class="pay-btn" onclick="handlePayment()">Start My Consultation — $1</button>
+
+        <div class="payment-trust">
+          <div class="payment-trust-item">🔒 256-bit SSL</div>
+          <div class="payment-trust-item">💰 Money-back guarantee</div>
+          <div class="payment-trust-item">🚫 Cancel anytime</div>
+        </div>
+        <p class="cancel-note">Your card will be charged $1 today. If you don't cancel within 7 days, your subscription renews at $46/month.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 6: CONFIRMATION ═══ -->
+  <div id="step-confirmation" class="step">
+    <div class="confirmation">
+      <div class="conf-icon">✓</div>
+      <div class="conf-title">You're Connected!</div>
+      <p class="conf-text">A board-certified dermatologist is reviewing your case now. You'll receive a detailed response within minutes.</p>
+      <button class="continue-btn" style="max-width:300px" onclick="resetFlow()">Submit Another Concern</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ API KEY MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>API Configuration</h3>
+    <p>Enter your Google AI Studio API key to enable the AI skin analysis. Your key is stored locally in your browser only.</p>
+    <div class="form-group">
+      <label class="form-label" for="apiKeyInput">Gemini API Key</label>
+      <input class="form-input" id="apiKeyInput" type="password" placeholder="AIza...">
+    </div>
+    <div class="key-status" id="keyStatus"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-secondary" onclick="toggleModal()">Cancel</button>
+      <button class="modal-btn-primary" onclick="saveApiKey()">Save Key</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   JAVATAR HEALTH — ASK A DERMATOLOGIST
+   Gemini 3.1 Flash-Lite Preview Integration
+   ═══════════════════════════════════════════ */
+
+// ── STATE ──────────────────────────────────
+const state = {
+  imageData: null,      // base64 string (no prefix)
+  imageMimeType: null,  // e.g. image/jpeg
+  imageUrl: null,       // object URL for preview
+  analysis: null,       // parsed JSON from Gemini
+  answers: [],          // [{question, answer, notes}]
+  currentQ: 0
+};
+
+const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
+const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+
+const ANALYSIS_PROMPT = `You are an AI assistant for Javatar Health, acting as a dermatologist's assistant performing an initial screening. You are empathetic, clear, and professional. You do NOT diagnose — instead you give observations and possibilities.
+
+Analyze the uploaded skin image and respond with ONLY valid JSON in this exact format:
+{
+  "observation": "A brief, empathetic description of what you observe in the image (2-3 sentences, use layperson-friendly language)",
+  "concern_level": "low" or "moderate" or "high",
+  "concern_label": "A short 2-4 word label like 'Likely Benign' or 'Worth Checking' or 'Seek Prompt Care'",
+  "possibilities": [
+    {"name": "Condition name", "description": "Brief 1-sentence layperson explanation"}
+  ],
+  "recommendation": "1-2 sentence recommendation on next steps",
+  "follow_up_questions": [
+    {
+      "question": "A relevant follow-up question a doctor's assistant would ask",
+      "options": ["Option A", "Option B", "Option C"]
+    }
+  ]
+}
+
+IMPORTANT RULES:
+- List 2-3 possibilities, from most to least likely
+- Generate exactly 4 follow-up questions that are relevant to what you observe in this specific image
+- Each question should have 3-4 multiple choice options
+- Questions should gather info useful to a dermatologist: duration, symptoms, history, triggers, changes, etc.
+- Be reassuring but honest — never minimize a genuinely concerning finding
+- If the image is not of skin or is too unclear, still respond with the JSON but note it in the observation and set concern_level to "low"
+- Use simple language a patient would understand`;
+
+// ── INIT ───────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  updateKeyStatus();
+  setupUpload();
+  setupCardFormatting();
+});
+
+// ── API KEY MANAGEMENT ─────────────────────
+function toggleModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.toggle('active');
+  if (overlay.classList.contains('active')) {
+    const saved = localStorage.getItem('gemini_api_key') || '';
+    document.getElementById('apiKeyInput').value = saved;
+  }
+}
+
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (key) {
+    localStorage.setItem('gemini_api_key', key);
+  } else {
+    localStorage.removeItem('gemini_api_key');
+  }
+  updateKeyStatus();
+  toggleModal();
+}
+
+function updateKeyStatus() {
+  const el = document.getElementById('keyStatus');
+  const key = localStorage.getItem('gemini_api_key');
+  if (key) {
+    el.textContent = '✓ API key saved';
+    el.className = 'key-status connected';
+  } else {
+    el.textContent = '✗ No API key configured';
+    el.className = 'key-status missing';
+  }
+}
+
+// ── FILE UPLOAD ────────────────────────────
+function setupUpload() {
+  const zone = document.getElementById('uploadZone');
+  const input = document.getElementById('fileInput');
+
+  zone.addEventListener('click', () => input.click());
+
+  zone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+
+  input.addEventListener('change', () => {
+    if (input.files.length) handleFile(input.files[0]);
+  });
+}
+
+function handleFile(file) {
+  if (!file.type.startsWith('image/')) return;
+  if (file.size > 10 * 1024 * 1024) {
+    alert('Image must be under 10MB');
+    return;
+  }
+
+  state.imageMimeType = file.type;
+  state.imageUrl = URL.createObjectURL(file);
+
+  // Show preview
+  const preview = document.getElementById('uploadPreview');
+  preview.src = state.imageUrl;
+  document.getElementById('uploadZone').classList.add('has-image');
+  document.getElementById('analyzeBtn').classList.add('visible');
+
+  // Resize and convert to base64
+  compressImage(file, 1024, 0.85).then(({ base64, mimeType }) => {
+    state.imageData = base64;
+    state.imageMimeType = mimeType;
+  });
+}
+
+function compressImage(file, maxDim, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const scale = maxDim / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', quality);
+      const base64 = dataUrl.split(',')[1];
+      resolve({ base64, mimeType: 'image/jpeg' });
+    };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+// ── STEP NAVIGATION ────────────────────────
+function goToStep(name) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + name).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── ANALYSIS ───────────────────────────────
+async function startAnalysis() {
+  const apiKey = localStorage.getItem('gemini_api_key');
+  if (!apiKey) {
+    toggleModal();
+    return;
+  }
+  if (!state.imageData) return;
+
+  // Switch to analyzing screen
+  goToStep('analyzing');
+  document.getElementById('analyzingThumb').src = state.imageUrl;
+  document.getElementById('analyzeSpinner').style.display = 'block';
+  document.getElementById('analyzeStatusText').textContent = 'Analyzing your image...';
+  document.getElementById('analyzeSubText').textContent = 'Our AI is reviewing your skin concern';
+  document.getElementById('errorBox').classList.remove('visible');
+
+  try {
+    const response = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [
+            { text: ANALYSIS_PROMPT },
+            { inlineData: { mimeType: state.imageMimeType, data: state.imageData } }
+          ]
+        }],
+        generationConfig: {
+          responseMimeType: 'application/json',
+          temperature: 0.4
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      const errMsg = errData?.error?.message || `HTTP ${response.status}`;
+      throw new Error(errMsg);
+    }
+
+    const data = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error('No response from AI model');
+
+    state.analysis = JSON.parse(text);
+    renderAssessment();
+    goToStep('assessment');
+  } catch (err) {
+    document.getElementById('analyzeSpinner').style.display = 'none';
+    document.getElementById('analyzeStatusText').textContent = '';
+    document.getElementById('analyzeSubText').textContent = '';
+    document.getElementById('errorBox').classList.add('visible');
+    document.getElementById('errorMsg').textContent = err.message;
+  }
+}
+
+// ── RENDER ASSESSMENT ──────────────────────
+function renderAssessment() {
+  const a = state.analysis;
+  document.getElementById('assessmentThumb').src = state.imageUrl;
+
+  // Concern badge
+  const badge = document.getElementById('concernBadge');
+  badge.textContent = a.concern_label || a.concern_level;
+  badge.className = 'concern-badge concern-' + (a.concern_level || 'low');
+
+  // Observation
+  document.getElementById('observationText').textContent = a.observation;
+
+  // Possibilities
+  const list = document.getElementById('possibilitiesList');
+  list.innerHTML = '';
+  (a.possibilities || []).forEach(p => {
+    const li = document.createElement('li');
+    li.className = 'possibility-item';
+    li.innerHTML = `
+      <span class="possibility-bullet"></span>
+      <div>
+        <div class="possibility-name">${escapeHtml(p.name)}</div>
+        <div class="possibility-desc">${escapeHtml(p.description)}</div>
+      </div>`;
+    list.appendChild(li);
+  });
+
+  // Recommendation
+  document.getElementById('recommendationText').textContent = a.recommendation;
+}
+
+// ── FOLLOW-UP QUESTIONS ────────────────────
+function renderQuestion() {
+  const questions = state.analysis.follow_up_questions || [];
+  const total = questions.length;
+  const idx = state.currentQ;
+
+  if (idx >= total) {
+    renderSummary();
+    goToStep('payment');
+    return;
+  }
+
+  const q = questions[idx];
+
+  // Progress bar
+  const bar = document.getElementById('progressBar');
+  bar.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const seg = document.createElement('div');
+    seg.className = 'progress-segment' + (i < idx ? ' filled' : '') + (i === idx ? ' current' : '');
+    bar.appendChild(seg);
+  }
+
+  document.getElementById('questionHeader').textContent = `Question ${idx + 1} of ${total}`;
+  document.getElementById('questionText').textContent = q.question;
+
+  // Options
+  const list = document.getElementById('optionsList');
+  list.innerHTML = '';
+  (q.options || []).forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('nextQuestionBtn').disabled = false;
+    });
+    list.appendChild(btn);
+  });
+
+  document.getElementById('additionalNotes').value = '';
+  document.getElementById('nextQuestionBtn').disabled = true;
+  document.getElementById('nextQuestionBtn').textContent = idx === total - 1 ? 'See Results' : 'Next';
+}
+
+function nextQuestion() {
+  const selected = document.querySelector('.option-btn.selected');
+  if (!selected) return;
+
+  const questions = state.analysis.follow_up_questions || [];
+  state.answers.push({
+    question: questions[state.currentQ].question,
+    answer: selected.textContent,
+    notes: document.getElementById('additionalNotes').value.trim()
+  });
+
+  state.currentQ++;
+  if (state.currentQ >= questions.length) {
+    renderSummary();
+    goToStep('payment');
+  } else {
+    renderQuestion();
+  }
+}
+
+// ── SUMMARY ────────────────────────────────
+function renderSummary() {
+  document.getElementById('summaryThumb').src = state.imageUrl;
+
+  const a = state.analysis;
+  const concern = document.getElementById('summaryConcern');
+  concern.textContent = a.concern_label || a.concern_level;
+  concern.style.color = a.concern_level === 'high' ? 'var(--red)' :
+                         a.concern_level === 'moderate' ? 'var(--warn)' : 'var(--green)';
+
+  const answersEl = document.getElementById('summaryAnswers');
+  answersEl.innerHTML = '';
+  state.answers.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'summary-answer-item';
+    div.innerHTML = `<div class="summary-q">${escapeHtml(a.question)}</div>
+                     <div class="summary-a">${escapeHtml(a.answer)}${a.notes ? ' — ' + escapeHtml(a.notes) : ''}</div>`;
+    answersEl.appendChild(div);
+  });
+}
+
+// ── PAYMENT (SIMULATED) ───────────────────
+function handlePayment() {
+  const name = document.getElementById('cardName').value.trim();
+  const number = document.getElementById('cardNumber').value.trim();
+  const expiry = document.getElementById('cardExpiry').value.trim();
+  const cvc = document.getElementById('cardCvc').value.trim();
+
+  if (!name || !number || !expiry || !cvc) {
+    alert('Please fill in all payment fields');
+    return;
+  }
+  goToStep('confirmation');
+}
+
+// ── CARD INPUT FORMATTING ─────────────────
+function setupCardFormatting() {
+  const cardNum = document.getElementById('cardNumber');
+  cardNum.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 16);
+    e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+  });
+
+  const expiry = document.getElementById('cardExpiry');
+  expiry.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 4);
+    if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
+    e.target.value = v;
+  });
+
+  const cvc = document.getElementById('cardCvc');
+  cvc.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+  });
+}
+
+// ── RESET FLOW ────────────────────────────
+function resetFlow() {
+  state.imageData = null;
+  state.imageMimeType = null;
+  state.imageUrl = null;
+  state.analysis = null;
+  state.answers = [];
+  state.currentQ = 0;
+
+  document.getElementById('uploadZone').classList.remove('has-image');
+  document.getElementById('analyzeBtn').classList.remove('visible');
+  document.getElementById('uploadPreview').src = '';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('cardName').value = '';
+  document.getElementById('cardNumber').value = '';
+  document.getElementById('cardExpiry').value = '';
+  document.getElementById('cardCvc').value = '';
+  document.getElementById('additionalNotes').value = '';
+
+  goToStep('upload');
+}
+
+// Transition from assessment to questions
+document.querySelector('#step-assessment .continue-btn').addEventListener('click', () => {
+  state.currentQ = 0;
+  state.answers = [];
+  renderQuestion();
+});
+
+// ── UTIL ──────────────────────────────────
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>

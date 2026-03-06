@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Javatar — Sample Demos</title>
+<meta name="description" content="Mini Javatar landing page demos — hyper-niche brands powered by JustAnswer.">
+<style>
+:root {
+  --bg: #f0f5ff;
+  --surface: #ffffff;
+  --card: #e2ecff;
+  --accent: #0066bb;
+  --accent2: #2563eb;
+  --text: #1a2f5e;
+  --muted: #4a6285;
+  --border: rgba(0,30,80,0.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.container { max-width: 560px; width: 100%; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(0,80,170,0.28);
+  border-radius: 99px;
+  padding: 4px 12px;
+  margin-bottom: 16px;
+}
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+h1 {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+h1 em { color: var(--accent); font-style: normal; }
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(0,30,80,0.1);
+}
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.card-icon.health { background: rgba(5,150,105,0.1); }
+.card-icon.legal { background: rgba(37,99,235,0.1); }
+.card-icon.pet { background: rgba(220,38,38,0.1); }
+.card-icon.tax { background: rgba(180,83,9,0.1); }
+.card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.card-body p { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.card-arrow { color: var(--muted); margin-left: auto; flex-shrink: 0; font-size: 18px; }
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-top: 6px;
+}
+.tag-live { background: rgba(5,150,105,0.12); color: #059669; }
+.tag-soon { background: rgba(180,83,9,0.12); color: #b45309; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="badge"><span class="dot"></span> Mini Javatar</div>
+  <h1>Sample <em>Demos</em></h1>
+  <p class="subtitle">Hyper-niche landing page prototypes powered by JustAnswer. Each demo showcases a different conversion template pattern.</p>
+
+  <a class="card" href="builds/health/ask-a-dermatologist/">
+    <div class="card-icon health">🔬</div>
+    <div class="card-body">
+      <h3>Ask a Dermatologist</h3>
+      <p>Template C — "Is This Normal?" · AI skin analysis + guided intake</p>
+      <span class="tag tag-live">Live</span>
+    </div>
+    <span class="card-arrow">→</span>
+  </a>
+
+  <a class="card" style="opacity:0.5;pointer-events:none" href="#">
+    <div class="card-icon pet">🐕</div>
+    <div class="card-body">
+      <h3>Dog Vet Emergency</h3>
+      <p>Template A — "My Hair is on Fire" · Panic-mode instant chat</p>
+      <span class="tag tag-soon">Coming Soon</span>
+    </div>
+    <span class="card-arrow">→</span>
+  </a>
+
+  <a class="card" style="opacity:0.5;pointer-events:none" href="#">
+    <div class="card-icon legal">⚖️</div>
+    <div class="card-body">
+      <h3>Immigration Lawyer</h3>
+      <p>Template B — "I Need Someone I Can Trust" · Expert showcase + intake</p>
+      <span class="tag tag-soon">Coming Soon</span>
+    </div>
+    <span class="card-arrow">→</span>
+  </a>
+
+  <a class="card" style="opacity:0.5;pointer-events:none" href="#">
+    <div class="card-icon tax">📋</div>
+    <div class="card-body">
+      <h3>IRS / Back Tax Help</h3>
+      <p>Template D — "Clock is Ticking" · Deadline countdown + calculator</p>
+      <span class="tag tag-soon">Coming Soon</span>
+    </div>
+    <span class="card-arrow">→</span>
+  </a>
+</div>
+</body>
+</html>
