@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Immigration Lawyer — Chat Now | Ask a Lawyer On Call</title>
+<meta name="description" content="Chat with a verified immigration attorney in minutes. H-1B, green card, DACA, asylum — no appointment, no retainer. Powered by JustAnswer.">
+<meta property="og:title" content="Immigration Lawyer — Chat Now | Ask a Lawyer On Call">
+<meta property="og:description" content="Connect with a licensed immigration lawyer who handles your exact case type. Minutes, not days.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══ DESIGN TOKENS ═══ */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --card: #f0f3f8;
+  --navy: #0f1b33;
+  --navy-light: #1a2d4f;
+  --blue: #2b6bf3;
+  --blue-hover: #1d5ae0;
+  --blue-light: rgba(43,107,243,0.08);
+  --blue-lighter: rgba(43,107,243,0.04);
+  --green: #00a67e;
+  --green-bg: rgba(0,166,126,0.08);
+  --orange: #f59e0b;
+  --text: #1a1f2e;
+  --text-2: #5a6478;
+  --text-on-dark: #ffffff;
+  --text-muted-dk: rgba(255,255,255,0.65);
+  --border: rgba(0,20,60,0.08);
+  --border-dk: rgba(255,255,255,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow: 0 2px 12px rgba(0,20,60,0.07);
+  --shadow-lg: 0 8px 32px rgba(0,20,60,0.10);
+  --r: 12px;
+  --r-lg: 16px;
+  --ease: 0.25s ease;
+}
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+button{cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+a{-webkit-tap-highlight-color:transparent}
+
+/* ═══ LAYOUT ═══ */
+.wrap{max-width:100%;min-height:100vh;display:flex;flex-direction:column}
+.c{max-width:560px;margin:0 auto;padding:0 20px;width:100%}
+.c-wide{max-width:720px;margin:0 auto;padding:0 20px;width:100%}
+
+/* ═══ SCREENS ═══ */
+.screen{display:none;flex-direction:column;flex:1;animation:fadeUp .3s ease}
+.screen.active{display:flex}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ═══ HEADER ═══ */
+.hdr{background:var(--navy);padding:12px 0;border-bottom:1px solid var(--border-dk);position:sticky;top:0;z-index:100}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{height:24px;width:auto}
+.hdr-link{font-size:12px;font-weight:600;color:var(--text-muted-dk);text-decoration:none;padding:6px 14px;border:1px solid var(--border-dk);border-radius:8px;transition:all var(--ease)}
+.hdr-link:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+
+/* ═══ HERO — EXPERT-FIRST ═══ */
+.hero{background:var(--navy);padding:28px 0 32px}
+.hero-top{margin-bottom:20px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:rgba(0,166,126,.12);border:1px solid rgba(0,166,126,.25);border-radius:99px;padding:4px 12px;margin-bottom:12px}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(22px,5.5vw,30px);font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--text-on-dark);margin-bottom:10px}
+.hero h1 em{color:var(--blue);font-style:normal}
+.hero-sub{font-size:14px;color:var(--text-muted-dk);line-height:1.55;margin-bottom:8px;max-width:420px}
+.hero-tp{font-size:12px;color:var(--text-muted-dk);margin-bottom:14px;display:flex;align-items:center;gap:4px}
+.hero-tp strong{color:#fff}
+
+/* Expert strip — 3 compact cards in the hero */
+.hero-experts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.hero-expert{background:rgba(255,255,255,.06);border:1px solid var(--border-dk);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:background var(--ease)}
+.hero-expert:hover{background:rgba(255,255,255,.09)}
+.hero-expert-photo{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,.15)}
+.hero-expert-info{flex:1;min-width:0}
+.hero-expert-name{font-size:14px;font-weight:700;color:#fff}
+.hero-expert-spec{font-size:11px;color:var(--text-muted-dk);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-expert-right{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.hero-expert-stars{height:12px;width:auto}
+.hero-expert-avail{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--green)}
+.hero-expert-avail .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+
+/* Hero CTA */
+.hero-cta-area{margin-top:24px}
+.hero-cta{width:100%;padding:15px;border:none;border-radius:var(--r);background:var(--blue);color:#fff;font-size:15px;font-weight:700;transition:background var(--ease),transform .15s ease}
+.hero-cta:hover{background:var(--blue-hover)}
+.hero-cta:active{transform:scale(.98)}
+.hero-note{text-align:center;font-size:12px;color:var(--text-muted-dk);margin-top:10px}
+.hero-note strong{color:var(--green)}
+
+/* Situation tags below CTA */
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;justify-content:center}
+.hero-tag{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:4px 10px;white-space:nowrap}
+
+/* ═══ PROOF BAR ═══ */
+.proof{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 0}
+.proof-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+.proof-stat{text-align:center;min-width:80px}
+.proof-val{font-size:18px;font-weight:800;color:var(--text)}
+.proof-label{font-size:11px;color:var(--text-2);font-weight:500}
+
+/* ═══ "PICK YOUR SITUATION" ═══ */
+.sit-section{background:var(--surface);padding:32px 0 36px}
+.sit-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px}
+.sit-sub{font-size:13px;color:var(--text-2);margin-bottom:18px}
+.sit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sit-card{background:var(--bg);border:2px solid transparent;border-radius:var(--r);padding:14px;text-align:center;transition:border-color var(--ease),background var(--ease);min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.sit-card:hover{border-color:var(--blue);background:var(--blue-lighter)}
+.sit-card-icon{font-size:22px}
+.sit-card-label{font-size:12px;font-weight:600;color:var(--text)}
+.sit-card-desc{font-size:11px;color:var(--text-2);display:none}
+
+/* ═══ HOW IT WORKS — COMPACT ═══ */
+.how-section{background:var(--bg);padding:32px 0}
+.how-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:18px}
+.how-steps{display:flex;flex-direction:column;gap:16px}
+.how-step{display:flex;align-items:flex-start;gap:14px}
+.how-num{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.how-content{flex:1}
+.how-label{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.how-desc{font-size:13px;color:var(--text-2);line-height:1.5}
+
+/* ═══ TESTIMONIALS ═══ */
+.tm-section{background:var(--surface);padding:32px 0}
+.tm-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px}
+.tm-tp{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:12px;color:var(--text-2)}
+.tm-tp-stars{color:var(--orange);letter-spacing:1px}
+.tm-tp-score{font-weight:700;color:var(--text)}
+.tm-tp-count{opacity:.8}
+.tm-card{background:var(--bg);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.tm-stars{color:var(--orange);font-size:12px;letter-spacing:.5px;margin-bottom:6px}
+.tm-text{font-size:13px;line-height:1.6;color:var(--text);font-style:italic;margin-bottom:6px}
+.tm-author{font-size:11px;font-weight:600;color:var(--text-2)}
+
+/* ═══ BOTTOM CTA BANNER ═══ */
+.bottom-cta{background:linear-gradient(135deg,var(--navy),var(--navy-light));padding:28px 0;text-align:center}
+.bottom-cta-title{font-size:18px;font-weight:800;color:var(--text-on-dark);margin-bottom:6px}
+.bottom-cta-sub{font-size:13px;color:var(--text-muted-dk);margin-bottom:18px}
+.bottom-cta-btn{display:inline-block;padding:14px 40px;border:none;border-radius:var(--r);background:#fff;color:var(--navy);font-size:15px;font-weight:700;transition:transform .15s ease}
+.bottom-cta-btn:hover{transform:scale(1.02)}
+.bottom-cta-btn:active{transform:scale(.98)}
+
+/* ═══ FOOTER ═══ */
+.ftr{background:var(--surface);border-top:1px solid var(--border);padding:20px 0;text-align:center}
+.ftr-badges{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:10px;flex-wrap:wrap}
+.ftr-badge{height:28px;width:auto;opacity:.6}
+.ftr-powered{font-size:11px;color:var(--text-2);margin-bottom:4px}
+.ftr-powered strong{color:var(--text)}
+.ftr-legal{font-size:10px;color:var(--text-2)}
+.ftr-legal a{color:var(--text-2);text-decoration:underline;margin:0 4px}
+
+/* ═══ SHARED: PROGRESS BAR ═══ */
+.progress{display:flex;gap:5px;margin-bottom:22px}
+.progress-seg{flex:1;height:4px;border-radius:2px;background:var(--card);transition:background var(--ease)}
+.progress-seg.done{background:var(--blue)}
+.progress-seg.now{background:var(--navy)}
+
+/* ═══ SHARED: INTAKE ═══ */
+.intake{background:var(--surface);padding:28px 0 36px;flex:1}
+.intake-step-label{font-size:10px;font-weight:700;color:var(--text-2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.intake-q{font-size:20px;font-weight:800;line-height:1.25;color:var(--text);margin-bottom:4px}
+.intake-hint{font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:18px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:var(--r);background:var(--surface);text-align:left;display:flex;align-items:center;gap:10px;transition:border-color var(--ease),background var(--ease);min-height:48px}
+.opt:hover{border-color:var(--blue);background:var(--blue-lighter)}
+.opt.sel{border-color:var(--blue);background:var(--blue-light);font-weight:700}
+.opt-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.opt-body{flex:1;min-width:0}
+.opt-label{font-size:14px;font-weight:600;color:var(--text)}
+.opt-desc{font-size:11px;color:var(--text-2);margin-top:1px}
+
+.urg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.urg{padding:14px;border:2px solid var(--border);border-radius:var(--r);background:var(--surface);font-size:13px;font-weight:600;color:var(--text);text-align:center;transition:border-color var(--ease),background var(--ease)}
+.urg:hover{border-color:var(--blue);background:var(--blue-lighter)}
+.urg.sel{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+.urg-emoji{display:block;font-size:20px;margin-bottom:4px}
+.urg-sub{font-size:10px;font-weight:400;color:var(--text-2);display:block;margin-top:2px}
+
+.txt{width:100%;padding:12px;border:2px solid var(--border);border-radius:var(--r);font-family:inherit;font-size:13px;color:var(--text);resize:vertical;min-height:80px;background:var(--surface);transition:border-color var(--ease)}
+.txt:focus{outline:none;border-color:var(--blue)}
+.txt-label{display:block;font-size:11px;font-weight:600;color:var(--text-2);margin-bottom:5px}
+
+/* Shared CTA */
+.btn{width:100%;padding:14px;border:none;border-radius:var(--r);background:var(--blue);color:#fff;font-size:15px;font-weight:700;transition:background var(--ease),transform .15s ease}
+.btn:hover{background:var(--blue-hover)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+.btn-outline:hover{background:var(--blue-light)}
+
+/* ═══ MATCH SCREEN — CASE ASSESSMENT + EXPERT ═══ */
+.match{background:var(--bg);padding:28px 0;flex:1}
+
+/* Case assessment — value before payment */
+.match-assess{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.match-assess-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.match-assess-label .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.match-assess-body{font-size:13px;color:var(--text);line-height:1.7}
+.match-assess-body p{margin-bottom:8px}
+.match-assess-body p:last-child{margin-bottom:0}
+.match-assess-stake{background:var(--blue-light);border-radius:var(--r);padding:12px 14px;margin-top:12px;font-size:12px;color:var(--text);line-height:1.5;font-weight:500}
+.match-assess-stake strong{color:var(--blue);font-weight:700}
+
+/* Match roster headline */
+.match-roster{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.match-roster-head{font-size:15px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:14px}
+.match-roster-head strong{color:var(--blue)}
+/* Avatars row */
+.match-roster-avatars{display:flex;align-items:center;gap:0;margin-bottom:14px}
+.match-roster-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.12);margin-left:-10px;position:relative}
+.match-roster-avatar:first-child{margin-left:0}
+.match-roster-more{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-10px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.match-roster-avail{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--green);margin-left:12px}
+.match-roster-avail .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+/* Stats grid */
+.match-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.match-stat{background:var(--bg);border-radius:var(--r-sm);padding:10px 12px;text-align:center}
+.match-stat-num{font-size:18px;font-weight:800;color:var(--text)}
+.match-stat-label{font-size:10px;color:var(--text-2);margin-top:2px;line-height:1.3}
+/* Why this matters bar */
+.match-why{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--border)}
+.match-why-item{flex:1;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2);font-weight:600}
+.match-why-icon{font-size:16px;flex-shrink:0}
+
+/* Case summary below expert */
+.match-summ{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.match-summ-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px}
+.match-summ-items{display:flex;flex-direction:column;gap:5px}
+.match-summ-q{font-size:12px;color:var(--text-2);font-weight:500}
+.match-summ-a{font-size:13px;color:var(--text);font-weight:600}
+.match-tp{font-size:11px;color:var(--text-2);text-align:center;padding:10px 0;margin-bottom:4px;line-height:1.5}
+
+/* Urgency picker on match screen */
+.match-urg{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.match-urg-label{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
+.match-urg-hint{font-size:11px;color:var(--text-2);margin-bottom:10px}
+
+/* Sticky mobile CTA bar */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--navy);padding:12px 16px;display:flex;align-items:center;gap:10px;z-index:100;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
+.sticky-cta.visible{transform:translateY(0)}
+.sticky-cta-text{flex:1;font-size:12px;color:var(--text-muted-dk);line-height:1.3}
+.sticky-cta-text strong{color:#fff;font-weight:700}
+.sticky-cta-btn{flex-shrink:0;padding:10px 20px;border:none;border-radius:var(--r);background:var(--blue);color:#fff;font-size:13px;font-weight:700}
+
+/* ═══ CHAT UI — PEARL CONVERSATION ═══ */
+#s-chat.active{height:100vh;height:100dvh;overflow:hidden;flex:none}
+.chat-screen{display:flex;flex-direction:column;flex:1;min-height:0;background:var(--bg);overflow:hidden;height:100%}
+.chat-header{background:var(--navy);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-back{background:none;border:none;color:var(--text-muted-dk);font-size:20px;padding:4px 8px;line-height:1}
+.chat-pearl-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid rgba(255,255,255,.2)}
+.chat-pearl-avatar img{width:100%;height:100%;object-fit:cover}
+.chat-pearl-info{flex:1}
+.chat-pearl-name{font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px}
+.chat-pearl-name .verified-badge{width:14px;height:14px;display:inline-flex}
+.chat-pearl-sub{font-size:11px;color:var(--text-muted-dk);margin-top:0px}
+.chat-pearl-status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px}
+.chat-pearl-status .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:0;-webkit-overflow-scrolling:touch}
+.chat-msg{display:flex;gap:8px;max-width:88%;animation:chatIn .3s ease}
+.chat-msg-bot{align-self:flex-start}
+.chat-msg-user{align-self:flex-end;flex-direction:row-reverse}
+.chat-msg-avatar{width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;margin-top:2px;font-size:0;color:transparent}
+.chat-msg-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.chat-trust-banner{background:var(--navy-light);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-bottom:1px solid var(--border-dk)}
+.chat-trust-avatars{display:flex;flex-shrink:0;overflow:hidden}
+.chat-trust-avatars img{width:28px;height:28px;border-radius:50%;border:2px solid var(--navy-light);object-fit:cover;margin-left:-8px;font-size:0;color:transparent;display:block}
+.chat-trust-avatars img:first-child{margin-left:0}
+.chat-trust-text{font-size:11px;color:rgba(255,255,255,.85);font-weight:600}
+.chat-trust-text strong{color:var(--green)}
+.chat-msg-user .chat-msg-avatar{display:none}
+.chat-bubble{padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.55;word-wrap:break-word}
+.chat-msg-bot .chat-bubble{background:var(--surface);color:var(--text);border:1px solid var(--border);border-bottom-left-radius:4px}
+.chat-msg-user .chat-bubble{background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+@keyframes chatIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.chat-typing{display:flex;gap:4px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.chat-typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text-2);animation:typeBounce 1.4s infinite ease-in-out}
+.chat-typing-dot:nth-child(2){animation-delay:.2s}
+.chat-typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typeBounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:4px 0 4px 36px;animation:chatIn .3s ease}
+.chat-qr{padding:8px 14px;border:2px solid var(--blue);border-radius:99px;background:transparent;color:var(--blue);font-size:12px;font-weight:600;transition:all var(--ease);white-space:nowrap}
+.chat-qr:hover{background:var(--blue);color:#fff}
+.chat-qr:active{transform:scale(.96)}
+.chat-input-area{padding:12px 16px;background:var(--surface);border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+.chat-input{flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:20px;font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);resize:none;max-height:100px;min-height:40px;line-height:1.4}
+.chat-input:focus{outline:none;border-color:var(--blue)}
+.chat-input::placeholder{color:var(--text-2)}
+.chat-send{width:36px;height:36px;border-radius:50%;border:none;background:var(--blue);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--ease)}
+.chat-send:hover{background:var(--blue-hover)}
+.chat-send:disabled{opacity:.3;cursor:not-allowed}
+.chat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin:4px 0 4px 36px;box-shadow:var(--shadow-sm);animation:chatIn .3s ease;max-width:calc(88% - 36px)}
+.chat-card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px}
+.chat-roster-avatars{display:flex;align-items:center;gap:0;margin-bottom:10px}
+.chat-roster-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-left:-8px}
+.chat-roster-avatar:first-child{margin-left:0}
+.chat-roster-more{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-8px;border:2px solid #fff}
+.chat-roster-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.chat-roster-stat{text-align:center;padding:6px;background:var(--bg);border-radius:8px}
+.chat-roster-stat-num{font-size:15px;font-weight:800;color:var(--text)}
+.chat-roster-stat-label{font-size:9px;color:var(--text-2);margin-top:1px}
+.chat-cta-card{background:linear-gradient(135deg,var(--navy),var(--navy-light));border:none;border-radius:var(--r);padding:18px;margin:4px 0 4px 36px;animation:chatIn .3s ease;max-width:calc(88% - 36px);color:#fff}
+.chat-cta-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.chat-cta-sub{font-size:12px;opacity:.8;margin-bottom:4px}
+.chat-cta-price{font-size:12px;opacity:.7;margin-bottom:14px}
+.chat-cta-price strong{color:#fff;opacity:1}
+.chat-cta-btn{width:100%;padding:13px;border:none;border-radius:var(--r);background:var(--blue);color:#fff;font-size:14px;font-weight:700;transition:background var(--ease)}
+.chat-cta-btn:hover{background:var(--blue-hover)}
+.chat-cta-tp{font-size:10px;opacity:.6;margin-top:10px;text-align:center}
+
+/* ═══ PAYMENT — CONSULTATION READY ═══ */
+.pay-section{background:var(--bg);padding:28px 0 36px;flex:1}
+
+/* Expert continuity strip at top */
+.pay-expert-strip{background:var(--navy);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px;color:#fff}
+.pay-expert-strip-avatars{display:flex;flex-shrink:0}
+.pay-expert-strip-avatars img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.25);margin-left:-8px}
+.pay-expert-strip-avatars img:first-child{margin-left:0}
+.pay-expert-strip-info{flex:1;min-width:0}
+.pay-expert-strip-name{font-size:14px;font-weight:700}
+.pay-expert-strip-meta{font-size:11px;opacity:.7;margin-top:1px}
+.pay-expert-strip-avail{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--green);margin-top:3px}
+.pay-expert-strip-avail .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+
+/* Value proposition — clear explanation of what the user gets */
+.pay-value{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.pay-value-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px}
+.pay-value-list{list-style:none;padding:0;margin:0}
+.pay-value-list li{font-size:13px;color:var(--text);padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.pay-value-list li .check{color:var(--green);font-weight:700;flex-shrink:0;font-size:14px}
+.pay-value-price{display:flex;align-items:baseline;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.pay-value-amount{font-size:20px;font-weight:800;color:var(--text)}
+.pay-value-period{font-size:13px;color:var(--text-2)}
+.pay-value-anchor{font-size:12px;color:var(--text-2);text-decoration:line-through;margin-left:8px;opacity:.7}
+.pay-value-cancel{font-size:12px;color:var(--text-2);margin-top:4px}
+
+/* CC form card */
+.pay-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.pay-hdr{padding:20px 22px 0;text-align:left}
+.pay-hdr-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:2px}
+.pay-body{padding:18px 22px 22px}
+.fg{margin-bottom:12px}
+.fl{display:block;font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px}
+.fi{width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);background:var(--bg);transition:border-color var(--ease)}
+.fi:focus{outline:none;border-color:var(--blue)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fr-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.pay-legal{font-size:11px;color:var(--text-2);line-height:1.55;margin-bottom:14px}
+.pay-legal a{color:var(--blue);text-decoration:none}
+.pay-legal a:hover{text-decoration:underline}
+.pay-cta-row{display:flex;align-items:center;gap:12px}
+.pay-cta-row .btn{flex:1}
+.pay-badge-verified{flex-shrink:0;width:48px;height:48px}
+.pay-tagline{text-align:center;font-size:12px;color:var(--text-2);margin-top:14px}
+.pay-secure{text-align:center;font-size:11px;color:var(--text-2);margin-top:6px}
+.pay-trust{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap}
+.pay-trust-badge{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--text-2)}
+.pay-tp-bar{text-align:center;font-size:12px;color:var(--text-2);margin-top:14px;padding:8px;background:var(--bg);border-radius:var(--r)}
+.pay-tp-bar strong{color:var(--text)}
+
+/* ═══ CONFIRMATION ═══ */
+.conf{background:var(--bg);padding:56px 0;flex:1}
+.conf-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.conf-icon{width:56px;height:56px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;font-size:28px}
+.conf-h{font-size:22px;font-weight:800;color:var(--text)}
+.conf-p{font-size:14px;color:var(--text-2);line-height:1.6;max-width:340px}
+.conf-expert{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;box-shadow:var(--shadow)}
+.conf-expert-photo{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--surface)}
+.conf-expert-name{font-weight:700;font-size:13px}
+.conf-expert-stat{font-size:11px;color:var(--green);font-weight:600}
+
+/* ═══ RESPONSIVE ═══ */
+
+/* Small phones — 360px and below */
+@media(max-width:380px){
+  .hero-expert{padding:10px 12px;gap:10px}
+  .hero-expert-photo{width:40px;height:40px}
+  .hero-expert-name{font-size:13px}
+  .sit-grid{grid-template-columns:1fr}
+  .urg-grid{grid-template-columns:1fr}
+  .proof-row{gap:16px}
+  .proof-val{font-size:16px}
+  .match-stats{gap:16px}
+}
+
+/* Standard phones */
+@media(max-width:480px){
+  .hero{padding:22px 0 28px}
+  .hero h1{font-size:22px}
+  .hero-sub{font-size:13px}
+  .sit-card-label{font-size:11px}
+  .fr-3{grid-template-columns:1fr 1fr;gap:8px}
+  .fr-3 .fg:last-child{grid-column:1/-1}
+}
+
+/* Tablets + small desktops */
+@media(min-width:600px){
+  .c{padding:0 32px}
+  .c-wide{padding:0 32px}
+  .hero-experts{flex-direction:row;gap:8px}
+  .hero-expert{flex:1;flex-direction:column;text-align:center;padding:14px 10px;gap:8px}
+  .hero-expert-right{align-items:center}
+  .hero-expert-spec{white-space:normal;text-align:center}
+  .sit-grid{grid-template-columns:repeat(3,1fr)}
+  .sit-card-desc{display:block}
+  .match-roster-avatar{width:52px;height:52px}
+  .match-roster-more{width:52px;height:52px;font-size:13px}
+  .match-stats{grid-template-columns:repeat(4,1fr)}
+}
+
+/* Large screens */
+@media(min-width:768px){
+  .c{max-width:600px}
+  .c-wide{max-width:780px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ═══ HEADER ═══ -->
+<header class="hdr">
+  <div class="c-wide hdr-inner">
+    <img class="hdr-logo" src="https://ww2-secure.justanswer.com/static/javatar/img/law/new/logo.svg" alt="Ask a Lawyer On Call">
+    <a class="hdr-link" href="#">Contact Us</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 1: LANDING PAGE (EXPERT-FIRST)
+     ═══════════════════════════════════════ -->
+<div id="s-landing" class="screen active">
+
+  <!-- HERO: Expert showcase above the fold -->
+  <section class="hero">
+    <div class="c">
+      <div class="hero-top">
+        <div class="hero-badge"><span class="dot"></span> Immigration Attorneys Online Now</div>
+        <h1>Talk to a verified <em>Immigration Attorney</em> — right now</h1>
+        <p class="hero-sub">H-1B, green card, DACA, asylum, family petition. No appointment. No retainer. A licensed attorney who handles your exact case type.</p>
+        <div class="hero-tp">★★★★★ <strong>4.8/5</strong> on Trustpilot · 11,000+ verified reviews</div>
+      </div>
+
+      <!-- 3 expert cards — the trust signal -->
+      <div class="hero-experts">
+        <div class="hero-expert">
+          <img class="hero-expert-photo" src="https://www.justanswer.com/uploads/GS/gsenmartin/2024-7-2_72743_gsenmartin.64x64.jpg" alt="Guillermo S.">
+          <div class="hero-expert-info">
+            <div class="hero-expert-name">Guillermo S.</div>
+            <div class="hero-expert-spec">Immigration Attorney &bull; 122K+ helped &bull; 18 yrs</div>
+          </div>
+          <div class="hero-expert-right">
+            <img class="hero-expert-stars" src="https://ww2-secure.justanswer.com/static/javatar/img/icons/5Stars.svg" alt="5 stars">
+            <span class="hero-expert-avail"><span class="dot"></span> Online</span>
+          </div>
+        </div>
+        <div class="hero-expert">
+          <img class="hero-expert-photo" src="https://www.justanswer.com/uploads/JL/jludwic/2023-11-5_10540_.64x64.jpg" alt="Judith L.">
+          <div class="hero-expert-info">
+            <div class="hero-expert-name">Judith L.</div>
+            <div class="hero-expert-spec">Immigration Lawyer &bull; 48K+ helped &bull; 18 yrs</div>
+          </div>
+          <div class="hero-expert-right">
+            <img class="hero-expert-stars" src="https://ww2-secure.justanswer.com/static/javatar/img/icons/5Stars.svg" alt="5 stars">
+            <span class="hero-expert-avail"><span class="dot"></span> Online</span>
+          </div>
+        </div>
+        <div class="hero-expert">
+          <img class="hero-expert-photo" src="https://www.justanswer.com/uploads/MD/mdlaw/2024-10-20_20489_.64x64.jpg" alt="Denise C.">
+          <div class="hero-expert-info">
+            <div class="hero-expert-name">Denise C.</div>
+            <div class="hero-expert-spec">Immigration Attorney &bull; 3.7K+ helped &bull; 7 yrs</div>
+          </div>
+          <div class="hero-expert-right">
+            <img class="hero-expert-stars" src="https://ww2-secure.justanswer.com/static/javatar/img/icons/5Stars.svg" alt="5 stars">
+            <span class="hero-expert-avail"><span class="dot"></span> Online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="hero-cta-area">
+        <button class="hero-cta" onclick="startChat()">Describe Your Case</button>
+        <p class="hero-note"><strong>4 min</strong> avg. attorney response &bull; 100% satisfaction guarantee</p>
+        <div class="hero-tags">
+          <span class="hero-tag">H-1B Visa</span>
+          <span class="hero-tag">Green Card</span>
+          <span class="hero-tag">DACA</span>
+          <span class="hero-tag">Family Petition</span>
+          <span class="hero-tag">Asylum</span>
+          <span class="hero-tag">RFE Response</span>
+          <span class="hero-tag">Deportation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAR -->
+  <section class="proof">
+    <div class="c">
+      <div class="proof-row">
+        <div class="proof-stat">
+          <div class="proof-val">9,000+</div>
+          <div class="proof-label">Immigration cases</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-val">4.8 ★</div>
+          <div class="proof-label">Avg. rating</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-val">4 min</div>
+          <div class="proof-label">Avg. response</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-val">98%</div>
+          <div class="proof-label">Satisfied</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PICK YOUR SITUATION — acts as soft CTA + relevance signal -->
+  <section class="sit-section">
+    <div class="c">
+      <div class="sit-title">What's your immigration situation?</div>
+      <div class="sit-sub">Pick one — we'll match you with an attorney who handles it</div>
+      <div class="sit-grid">
+        <button class="sit-card" onclick="quickStart('h1b')">
+          <span class="sit-card-icon">💼</span>
+          <span class="sit-card-label">H-1B / Work Visa</span>
+        </button>
+        <button class="sit-card" onclick="quickStart('greencard')">
+          <span class="sit-card-icon">🟢</span>
+          <span class="sit-card-label">Green Card</span>
+        </button>
+        <button class="sit-card" onclick="quickStart('family')">
+          <span class="sit-card-icon">👨‍👩‍👧</span>
+          <span class="sit-card-label">Family Petition</span>
+        </button>
+        <button class="sit-card" onclick="quickStart('daca')">
+          <span class="sit-card-icon">📋</span>
+          <span class="sit-card-label">DACA / Dreamer</span>
+        </button>
+        <button class="sit-card" onclick="quickStart('asylum')">
+          <span class="sit-card-icon">🛡️</span>
+          <span class="sit-card-label">Asylum / Refugee</span>
+        </button>
+        <button class="sit-card" onclick="quickStart('other')">
+          <span class="sit-card-icon">📝</span>
+          <span class="sit-card-label">Other</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — 3 steps, compact -->
+  <section class="how-section">
+    <div class="c">
+      <div class="how-title">How it works</div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-content">
+            <div class="how-label">Describe your case</div>
+            <div class="how-desc">Chat with Pearl about your immigration situation. Takes under 2 minutes.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-content">
+            <div class="how-label">Get matched with a specialist</div>
+            <div class="how-desc">We connect you with an attorney who handles your exact case type — not a general lawyer.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-content">
+            <div class="how-label">Chat until you're satisfied</div>
+            <div class="how-desc">Unlimited back-and-forth. Ask follow-ups, share documents, get clarity.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="tm-section">
+    <div class="c">
+      <div class="tm-title">Real immigration cases, real results</div>
+      <div class="tm-tp">
+        <span class="tm-tp-stars">★★★★★</span>
+        <span class="tm-tp-score">4.8 / 5</span>
+        <span class="tm-tp-count">on Trustpilot · 11,000+ reviews</span>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-stars">★★★★★</div>
+        <div class="tm-text">"Anita was more informative and knowledgeable than immigration lawyers I've paid and spoke with in Los Angeles and New York."</div>
+        <div class="tm-author">— Bryan R., Mexico · via Trustpilot</div>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-stars">★★★★★</div>
+        <div class="tm-text">"Literally life changing advice. Mr Gurney gave very clear directions and plan of action for a complex, overwhelming immigration system. He even went above and beyond in helping with an important document. Our family is so grateful."</div>
+        <div class="tm-author">— Mysti D., US · via Trustpilot</div>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-stars">★★★★☆</div>
+        <div class="tm-text">"I didn't expect much. I was pleasantly surprised. Debra took time to answer my every concern and more, with plausible routes to resolving the challenge. The information was much more than that of an immigration lawyer on paid consultation."</div>
+        <div class="tm-author">— Treasure, Canada · via Trustpilot</div>
+      </div>
+
+      <div class="tm-card">
+        <div class="tm-stars">★★★★★</div>
+        <div class="tm-text">"I contacted an immigration lawyer with an extremely complicated case — being abused, afraid and facing deportation. He listened carefully and sent me a clear road map of next steps within 30 minutes. This experience restored my faith."</div>
+        <div class="tm-author">— Verified Customer, US · via Trustpilot</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <div class="c">
+      <div class="bottom-cta-title">Immigration deadlines don't wait</div>
+      <div class="bottom-cta-sub">A small mistake can cost you years. Talk to a verified attorney now.</div>
+      <button class="bottom-cta-btn" onclick="startChat()">Get Matched with an Attorney</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ftr">
+    <div class="c-wide">
+      <div class="ftr-badges">
+        <span style="font-size:10px;font-weight:600;color:var(--text-2)">✅ BBB Accredited</span>
+        <span style="font-size:10px;font-weight:600;color:var(--text-2)">🔐 DigiCert Secured</span>
+      </div>
+      <div class="ftr-powered">Powered by <strong>JustAnswer</strong></div>
+      <div class="ftr-legal">
+        &copy; 2018–2026 askalawyeroncall.com
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky mobile CTA bar -->
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-cta-text"><strong>Immigration attorneys</strong> are online now</div>
+    <button class="sticky-cta-btn" onclick="startChat()">Get Matched</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 2: PEARL CHAT — DESCRIBE YOUR CASE
+     ═══════════════════════════════════════ -->
+<div id="s-chat" class="screen">
+  <div class="chat-screen">
+    <div class="chat-header">
+      <button class="chat-back" onclick="goTo('landing')">&larr;</button>
+      <div class="chat-pearl-avatar"><img src="https://ww2-secure.justanswer.com/static/javatar/img/icons/Pearl_Tech_Avatar_32.jpg" alt="Pearl AI"></div>
+      <div class="chat-pearl-info">
+        <div class="chat-pearl-name">Pearl AI <svg class="verified-badge" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#00a67e"/><path d="M5 8.5l2 2 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="chat-pearl-sub">Immigration Lawyer's Assistant</div>
+        <div class="chat-pearl-status"><span class="dot"></span> Online</div>
+      </div>
+    </div>
+    <div class="chat-trust-banner" id="chatTrustBanner">
+      <div class="chat-trust-avatars" id="chatTrustAvatars"></div>
+      <div class="chat-trust-text"><strong id="chatTrustCount"></strong> <span id="chatTrustLabel">verified immigration lawyers are online now</span></div>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area" id="chatInputArea" style="display:none">
+      <textarea class="chat-input" id="chatInput" rows="1" placeholder="Describe your situation..."></textarea>
+      <button class="chat-send" id="chatSend" onclick="sendChatMessage()">&#8593;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 6: CONSULTATION READY — PAYMENT
+     ═══════════════════════════════════════ -->
+<div id="s-payment" class="screen">
+  <section class="pay-section">
+    <div class="c">
+
+      <!-- Expert continuity -->
+      <div class="pay-expert-strip">
+        <div class="pay-expert-strip-avatars" id="payExAvatars">
+          <!-- Populated by JS: stacked avatar images -->
+        </div>
+        <div class="pay-expert-strip-info">
+          <div class="pay-expert-strip-name" id="payExName"></div>
+          <div class="pay-expert-strip-meta" id="payExMeta"></div>
+          <div class="pay-expert-strip-avail"><span class="dot"></span> Immigration attorneys available now</div>
+        </div>
+      </div>
+
+      <!-- Clear value proposition — what you get and what it costs -->
+      <div class="pay-value">
+        <div class="pay-value-title" id="payValueTitle">What you get</div>
+        <ul class="pay-value-list" id="payValueList">
+          <!-- Populated by JS -->
+        </ul>
+        <div class="pay-value-price">
+          <span class="pay-value-amount">$65</span>
+          <span class="pay-value-period">today</span>
+          <span class="pay-value-anchor">$300–500/hr at a firm</span>
+        </div>
+        <div class="pay-value-cancel">Includes 30-day membership — unlimited follow-ups. Cancel anytime.</div>
+      </div>
+
+      <!-- CC form — framed as final step, not primary focus -->
+      <div class="pay-card">
+        <div class="pay-hdr">
+          <div class="pay-hdr-title">Enter your details to start</div>
+        </div>
+        <div class="pay-body">
+          <div class="fg">
+            <label class="fl" for="fEmail">Email</label>
+            <input class="fi" id="fEmail" type="email" placeholder="example@email.com" autocomplete="email">
+          </div>
+          <div class="fg">
+            <label class="fl" for="fCard">Credit card number</label>
+            <input class="fi" id="fCard" type="text" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number" inputmode="numeric">
+          </div>
+          <div class="fr-3">
+            <div class="fg">
+              <label class="fl" for="fExp">Expiration</label>
+              <input class="fi" id="fExp" type="text" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" inputmode="numeric">
+            </div>
+            <div class="fg">
+              <label class="fl" for="fCvc">Security code</label>
+              <input class="fi" id="fCvc" type="text" placeholder="CVV" maxlength="4" autocomplete="cc-csc" inputmode="numeric">
+            </div>
+            <div class="fg">
+              <label class="fl" for="fZip">ZIP / Postal code</label>
+              <input class="fi" id="fZip" type="text" placeholder="12345" maxlength="10" autocomplete="postal-code" inputmode="numeric">
+            </div>
+          </div>
+
+          <p class="pay-legal">By clicking "Start Consultation", I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, and to be charged <strong>$65 today</strong>. Includes a 30-day membership that renews monthly until canceled. Cancel anytime from My Account.</p>
+
+          <div class="pay-cta-row">
+            <button class="btn" onclick="handlePay()">Start Consultation</button>
+            <svg class="pay-badge-verified" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" fill="#f0faf5" stroke="#00a67e" stroke-width="2"/><path d="M15 25l6 6 12-12" stroke="#00a67e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="24" y="44" text-anchor="middle" fill="#00a67e" font-size="5" font-weight="700" font-family="Inter,sans-serif">100%</text></svg>
+          </div>
+          <button class="btn btn-outline" style="margin-top:8px" onclick="goTo('chat')">Back</button>
+
+          <div class="pay-tp-bar">★★★★★ <strong>Rated 4.8/5</strong> on Trustpilot · 11,000+ verified reviews</div>
+          <p class="pay-secure">🔒 Your information is secure.</p>
+
+          <div class="pay-trust">
+            <span class="pay-trust-badge">✅ BBB Accredited</span>
+            <span class="pay-trust-badge">⭐ Google 4.9</span>
+            <span class="pay-trust-badge">🔐 DigiCert Secured</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SCREEN 7: CONFIRMATION
+     ═══════════════════════════════════════ -->
+<div id="s-confirmation" class="screen">
+  <section class="conf">
+    <div class="c">
+      <div class="conf-inner">
+        <div class="conf-icon">✓</div>
+        <div class="conf-h">You're Connected!</div>
+        <p class="conf-p">A verified immigration attorney is reviewing your case now. Expect a response within minutes.</p>
+        <div class="conf-expert">
+          <div style="display:flex;margin-bottom:6px">
+            <img class="conf-expert-photo" style="margin-left:0" src="" alt="" id="cPhoto1">
+            <img class="conf-expert-photo" style="margin-left:-10px" src="" alt="" id="cPhoto2">
+            <img class="conf-expert-photo" style="margin-left:-10px" src="" alt="" id="cPhoto3">
+          </div>
+          <div>
+            <div class="conf-expert-name" id="cName"></div>
+            <div class="conf-expert-stat">● Reviewing your case now</div>
+          </div>
+        </div>
+        <button class="btn" style="max-width:320px" onclick="reset()">Start a New Consultation</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ═══════════════════════════════════════════
+   IMMIGRATION LAWYER — Template B
+   Expert-First → Guided Intake → Match
+   ═══════════════════════════════════════════ */
+
+const S = { visaType:null, situation:null, detail:'', urgency:null, expert:null };
+
+const experts = [
+  { name:'Guillermo S.', title:'Principal Attorney · Immigration Law · JD · Verified',
+    photo:'https://www.justanswer.com/uploads/GS/gsenmartin/2024-7-2_72743_gsenmartin.64x64.jpg',
+    specs:['H-1B & Work Visas','Green Cards','Deportation Defense'], years:18, cases:'122,700+', rating:'4.8',
+    handles:['h1b','greencard','deportation','daca','other'] },
+  { name:'Judith L.', title:'Immigration Attorney · J.D. · 40+ Yrs Practice · Verified',
+    photo:'https://www.justanswer.com/uploads/JL/jludwic/2023-11-5_10540_.64x64.jpg',
+    specs:['Asylum','Family Petition','Work Visas'], years:18, cases:'48,200+', rating:'4.8',
+    handles:['asylum','family','h1b','other'] },
+  { name:'Denise C.', title:'Immigration Attorney · Juris Doctor · Verified',
+    photo:'https://www.justanswer.com/uploads/MD/mdlaw/2024-10-20_20489_.64x64.jpg',
+    specs:['Family Immigration','DACA','Green Cards'], years:7, cases:'3,700+', rating:'4.9',
+    handles:['family','daca','greencard','asylum','deportation','other'] }
+];
+
+const sitMap = {
+  h1b:{ q:"What's happening with your work visa?", hint:'Select the closest match.',
+    opts:[
+      {v:'denial',i:'❌',l:'Petition denied',d:'H-1B, L-1 or other work visa denied'},
+      {v:'rfe',i:'📄',l:'Received an RFE',d:'Need help responding to Request for Evidence'},
+      {v:'transfer',i:'🔄',l:'Employer transfer',d:'Changing employers, transferring sponsorship'},
+      {v:'lottery',i:'🎲',l:'H-1B lottery / cap',d:'Registration, selection, cap-exempt questions'},
+      {v:'status',i:'❓',l:'Status question',d:'Grace period, maintaining status, stamping'}
+    ]},
+  greencard:{ q:'What stage of the green card process?', hint:'This helps match you precisely.',
+    opts:[
+      {v:'eb',i:'💼',l:'Employment-based filing',d:'EB-1, EB-2 (NIW), EB-3, I-140'},
+      {v:'aos',i:'📋',l:'Adjustment of Status',d:'I-485, interview prep, medical exam'},
+      {v:'consular',i:'🏛️',l:'Consular processing',d:'NVC, DS-260, embassy interview'},
+      {v:'priority',i:'📅',l:'Priority date / backlog',d:'Visa bulletin, when will date be current?'},
+      {v:'rfe',i:'❌',l:'RFE or denial',d:'RFE, NOID, or denial on green card case'}
+    ]},
+  family:{ q:'What type of family immigration case?', hint:'Select the closest match.',
+    opts:[
+      {v:'spouse',i:'💍',l:'Spouse / marriage',d:'I-130, CR-1/IR-1, marriage green card'},
+      {v:'fiance',i:'💑',l:'K-1 fiancé visa',d:'Bringing fiancé(e) to the US'},
+      {v:'parent',i:'👨‍👧',l:'Parent or child petition',d:'Sponsoring parent, child, or sibling'},
+      {v:'interview',i:'🗣️',l:'Interview preparation',d:'Upcoming USCIS or embassy interview'},
+      {v:'other',i:'📝',l:'Other family matter',d:'Adoption, derivative status, other'}
+    ]},
+  daca:{ q:'What do you need help with for DACA?', hint:'Rules change frequently — get current guidance.',
+    opts:[
+      {v:'renewal',i:'🔄',l:'DACA renewal',d:'Filing or questions about renewing'},
+      {v:'parole',i:'✈️',l:'Advance parole',d:'Travel authorization while on DACA'},
+      {v:'first',i:'📝',l:'First-time application',d:'Eligibility and new application'},
+      {v:'path',i:'🔀',l:'Path to green card',d:'Options for adjusting status from DACA'},
+      {v:'general',i:'❓',l:'General questions',d:'Policy changes, work permit, state rules'}
+    ]},
+  asylum:{ q:"What's your asylum or refugee situation?", hint:'Your information is confidential.',
+    opts:[
+      {v:'filing',i:'📄',l:'Filing application',d:'I-589, one-year deadline, evidence prep'},
+      {v:'interview',i:'🗣️',l:'Interview prep',d:'Upcoming asylum officer interview'},
+      {v:'court',i:'🏛️',l:'Immigration court',d:'Removal proceedings, judge hearing'},
+      {v:'appeal',i:'📋',l:'Appeal or denial',d:'BIA appeal, motion to reopen'},
+      {v:'ead',i:'❓',l:'Status / EAD questions',d:'Work permit, travel, pending case'}
+    ]},
+  deportation:{ q:'What is your removal / deportation situation?', hint:'Time is critical. We match you urgently.',
+    opts:[
+      {v:'nta',i:'📄',l:'Notice to Appear',d:'Received NTA, need next steps'},
+      {v:'hearing',i:'🏛️',l:'Court hearing coming',d:'Master calendar or individual hearing'},
+      {v:'detained',i:'🔒',l:'Detained / bond',d:'Family member detained, bond hearing'},
+      {v:'order',i:'⚠️',l:'Removal order issued',d:'Final order, motion to reopen, stay'},
+      {v:'voluntary',i:'📋',l:'Voluntary departure',d:'Considering voluntary departure vs. fighting'}
+    ]},
+  other:{ q:'What immigration question do you have?', hint:'Select the closest option or describe below.',
+    opts:[
+      {v:'citizenship',i:'🇺🇸',l:'Citizenship / Naturalization',d:'N-400, interview prep, eligibility'},
+      {v:'renewal',i:'🔄',l:'Visa renewal / extension',d:'Extending or renewing current visa'},
+      {v:'travel',i:'✈️',l:'Travel document',d:'Re-entry permit, refugee travel document'},
+      {v:'ead',i:'💼',l:'Work authorization (EAD)',d:'I-765, employment authorization'},
+      {v:'general',i:'❓',l:'General question',d:'Something else not listed'}
+    ]}
+};
+
+/* ── Navigation ── */
+function goTo(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('s-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (name === 'payment') populatePayExpert();
+  // Hide/show site header for chat screen
+  var hdr = document.querySelector('.hdr');
+  if (hdr) hdr.style.display = (name === 'chat') ? 'none' : '';
+  // Hide sticky CTA when not on landing
+  var sticky = document.getElementById('stickyCta');
+  if (sticky) sticky.classList.toggle('visible', false);
+}
+
+/* Quick-start from situation grid on landing page */
+function quickStart(type) {
+  startChat(type);
+}
+
+/* (pickOpt, pickUrg, renderSit removed — chat engine handles these now) */
+
+/* ── Case-specific consultation plans ── */
+const consultPlans = {
+  h1b: {
+    denial: ['Review your denial notice and identify grounds for appeal','Evaluate Motion to Reopen vs. new filing strategy','Assess alternative visa options (O-1, L-1, EB categories)','Timeline and next steps specific to your employer'],
+    rfe: ['Analyze the specific RFE points and what USCIS wants','Draft strategy for a strong RFE response','Review evidence you have vs. what you need','Deadline management — how much time you have and extensions'],
+    transfer: ['H-1B transfer process and your specific timeline','Employer obligations and what to watch for','Maintaining status during the transition period','Backup plan if the transfer hits roadblocks'],
+    lottery: ['Your registration status and cap-exempt eligibility','Premium processing strategy and timing','What to do if not selected — alternative pathways','Employer next steps and compliance requirements'],
+    status: ['Current visa status assessment and any risks','Grace period rules and what actions to take','Stamping and re-entry considerations','Path forward — extension, transfer, or status change']
+  },
+  greencard: {
+    eb: ['Eligibility assessment for your EB category','I-140 strategy — which classification is strongest','Priority date outlook and timeline expectations','Employer requirements and labor certification questions'],
+    aos: ['I-485 filing status and what to expect next','Interview preparation — questions they typically ask','Medical exam and supporting document checklist','Timeline from filing to approval for your category'],
+    consular: ['NVC processing status and next steps','DS-260 review and common pitfalls','Embassy interview preparation and what to bring','Processing times at your specific consulate'],
+    priority: ['Your priority date and current visa bulletin analysis','Estimated wait time based on your category and country','Options to potentially speed up the process','What to do while waiting — maintaining eligibility'],
+    rfe: ['Analyze the specific RFE or denial grounds','Response strategy and evidence needed','Deadline and filing requirements','Appeal options if the response is denied']
+  },
+  family: {
+    spouse: ['I-130 process and timeline for your situation','Evidence requirements for bona fide marriage','Interview preparation — what they look for','Work authorization and travel while pending'],
+    fiance: ['K-1 visa process and current processing times','Required documentation and evidence checklist','What happens after your fiance arrives in the US','Timeline to adjustment of status after marriage'],
+    parent: ['Petition type and eligibility for your family member','Processing timeline for your preference category','Document requirements and country-specific considerations','What your family member should prepare'],
+    interview: ['Specific questions likely for your case type','Documents to bring and how to organize them','Common mistakes to avoid at the interview','What to do if asked to provide additional evidence'],
+    other: ['Assessment of your specific family situation','Available immigration pathways for your case','Documentation and evidence requirements','Timeline expectations and next steps']
+  },
+  daca: {
+    renewal: ['Current DACA renewal process and any policy changes','Filing timeline — how early to file and what to prepare','Common issues that delay or deny renewals','Work permit continuity during the renewal period'],
+    parole: ['Advance parole eligibility and current availability','Risks and benefits of traveling on advance parole','Application process and required documents','Re-entry considerations and what to prepare'],
+    first: ['Eligibility assessment for initial DACA filing','Current policy on new applications','Required documentation and evidence','Alternative options if DACA is not available'],
+    path: ['Available pathways from DACA to permanent status','Marriage-based, employment-based, or other options','Advance parole and adjustment of status strategy','Risks and considerations for each pathway'],
+    general: ['Current DACA policy status and recent changes','Impact on your specific situation','Work authorization and state-specific rules','Long-term planning and alternative strategies']
+  },
+  asylum: {
+    filing: ['One-year filing deadline assessment','Grounds for asylum — which one fits your case','Evidence you need and how to document your claim','I-589 preparation strategy'],
+    interview: ['What the asylum officer will ask','How to present your testimony effectively','Evidence organization and presentation strategy','What happens after the interview — timeline and outcomes'],
+    court: ['Your hearing type and what to prepare','How to present your case to the immigration judge','Evidence and witness strategy','Appeal rights if the outcome is unfavorable'],
+    appeal: ['Grounds for appeal to the BIA','Motion to Reopen requirements and deadlines','New evidence that could change the outcome','Timeline and what to expect during the appeal'],
+    ead: ['Work permit eligibility and current processing times','Travel restrictions while your case is pending','How to check your case status','Timeline to final decision']
+  },
+  deportation: {
+    nta: ['What the NTA means and your rights','Available defenses for your situation','First hearing preparation and what to expect','Bond eligibility and how to stay out of detention'],
+    hearing: ['Your hearing type — master calendar vs. individual','How to present your defense','Evidence and witness preparation','Possible outcomes and what each means for you'],
+    detained: ['Bond hearing strategy and eligibility','How to communicate with detained family member','Attorney representation options','Timeline for bond and case proceedings'],
+    order: ['Options after a removal order — Motion to Reopen, stay','Deadlines and filing requirements','Voluntary departure vs. fighting the order','Emergency relief options if deportation is imminent'],
+    voluntary: ['Pros and cons of voluntary departure vs. fighting','Impact on future immigration benefits','Deadline and filing requirements','Bar to re-entry — how long and any exceptions']
+  },
+  other: {
+    citizenship: ['N-400 eligibility — residency, physical presence, moral character','Interview preparation and civics test','Common issues that cause delays or denials','Timeline from application to oath ceremony'],
+    renewal: ['Extension/renewal eligibility for your visa type','Filing timeline and required documents','What to do if your status expires before approval','Alternative options if extension is not available'],
+    travel: ['Travel document options for your immigration status','Processing times and expedite criteria','Risks of traveling while cases are pending','Re-entry preparation and what to carry'],
+    ead: ['EAD eligibility based on your current status','Processing times and expedite options','What to do if your EAD expires before renewal arrives','Work authorization bridges and gap strategies'],
+    general: ['Assessment of your specific immigration question','Available options and pathways','Documentation requirements','Recommended next steps and timeline']
+  }
+};
+
+/* ── Case assessments — personalized "give" before asking for payment ── */
+const caseAssessments = {
+  h1b: {
+    denial: "An H-1B denial can feel overwhelming, but many denials are successfully overturned through a Motion to Reopen or appeal \u2014 especially with strong supplemental evidence. The key is identifying exactly why USCIS denied your petition and addressing those specific grounds. Acting quickly matters because filing deadlines are strict.",
+    rfe: "An RFE means USCIS needs more information before making a decision \u2014 it is not a denial. However, your response needs to directly address each point USCIS raised, with strong supporting documentation. Most RFE responses are due within 60\u201387 days, and the quality of your response often determines the outcome.",
+    transfer: "Transferring your H-1B to a new employer is a well-established process, but timing and compliance are critical. If your new employer files promptly, you can begin working for them as soon as the transfer petition is received by USCIS. An attorney can ensure nothing falls through the cracks during the transition.",
+    lottery: "The H-1B lottery process is highly competitive, with demand far exceeding the annual cap. Understanding your cap-exempt eligibility, premium processing options, and alternative visa pathways can significantly improve your chances. Many applicants have options they are not aware of.",
+    status: "Maintaining valid immigration status is essential \u2014 even a brief lapse can have serious consequences for future applications. Grace periods, extension timing, and re-entry rules are nuanced and depend on your specific visa type and situation. Getting clarity now can prevent costly mistakes later."
+  },
+  greencard: {
+    eb: "Employment-based green cards have specific eligibility criteria that vary significantly by category (EB-1, EB-2, EB-3). Choosing the right classification and building a strong petition from the start can save years of waiting. Your priority date, country of birth, and job qualifications all affect your timeline.",
+    aos: "Adjustment of Status (I-485) is the final major step in your green card process. Interview preparation, ensuring your documentation is complete, and understanding what to expect can make the difference between approval and delays. Most interviews last 15\u201330 minutes, but the questions vary by case type.",
+    consular: "Consular processing involves coordinating with the National Visa Center and your local embassy \u2014 each with their own procedures and timelines. Proper preparation of your DS-260, civil documents, and financial evidence is critical. Embassy interviews can be stressful, but thorough preparation leads to smooth outcomes.",
+    priority: "Priority date backlogs vary dramatically by preference category and country of birth. Understanding where your date falls in the Visa Bulletin and what options exist to potentially expedite your case (NIW, EB-1 upgrade, cross-chargeability) can be the difference between years of waiting and a faster path.",
+    rfe: "An RFE or denial on a green card case needs immediate, careful attention. The response must directly address USCIS concerns with strong evidence, and the filing deadline is strict. If your case was denied, you may have options including a Motion to Reopen, appeal, or refiling with a stronger case."
+  },
+  family: {
+    spouse: "Marriage-based immigration is one of the most common pathways, but USCIS scrutinizes these petitions closely for evidence of a genuine relationship. Having proper documentation organized \u2014 joint finances, photos, communications, affidavits \u2014 is essential. Processing times vary but typically range from 12\u201324 months.",
+    fiance: "The K-1 fianc\u00e9 visa process has specific requirements including meeting in person within the past two years. After your fianc\u00e9 arrives in the US, you must marry within 90 days. Understanding the full timeline \u2014 from petition to adjustment of status \u2014 helps you plan and avoid gaps in status.",
+    parent: "Family preference petitions have different wait times depending on the relationship and your country of birth. Immediate relatives (parents of US citizens, unmarried children under 21) have no wait \u2014 but other categories can take years. Understanding your category and preparing strong documentation matters.",
+    interview: "USCIS and embassy interviews for family cases focus on verifying the relationship and the petitioner\u2019s ability to support the immigrant. The specific questions depend on your case type, but being well-prepared \u2014 with organized documents and consistent, honest answers \u2014 significantly improves outcomes.",
+    other: "Family immigration has many pathways depending on your specific situation and relationship. Whether it involves adoption, derivative status, or a unique family circumstance, an immigration attorney can assess your eligibility and identify the best path forward for your case."
+  },
+  daca: {
+    renewal: "DACA renewal requires filing before your current status expires \u2014 USCIS recommends filing 120\u2013150 days in advance. Late renewals can create gaps in work authorization. The process is straightforward if your situation has not changed, but any arrests, travel, or address changes can complicate things.",
+    parole: "Advance parole for DACA recipients allows travel outside the US, but the rules have changed multiple times. Traveling without proper authorization can result in losing DACA status and triggering bars to re-entry. Understanding current policy and risks before applying is critical.",
+    first: "First-time DACA applications have been subject to changing policies and court orders. Eligibility depends on continuous presence, education or military service, and criminal history. An attorney can assess whether you qualify under current rules and help you build the strongest possible application.",
+    path: "DACA does not directly lead to a green card, but several pathways may be available depending on your situation \u2014 including marriage to a US citizen, employer sponsorship, or advance parole combined with adjustment of status. Each pathway has different requirements, risks, and timelines.",
+    general: "DACA policy continues to evolve through court decisions and executive action. Understanding how current changes affect your specific situation \u2014 work authorization, state-level benefits, and long-term planning \u2014 helps you make informed decisions and stay prepared for any shifts."
+  },
+  asylum: {
+    filing: "The asylum filing deadline is one year from your last arrival in the US, with limited exceptions. Building a strong case requires detailed documentation of persecution, country conditions evidence, and a compelling personal declaration. The quality of your initial application significantly impacts the outcome.",
+    interview: "The asylum interview is your primary opportunity to present your case to the asylum officer. How you tell your story, the evidence you present, and your ability to answer follow-up questions all affect the outcome. Most interviews last 1\u20133 hours, and preparation is the single biggest factor in success.",
+    court: "Immigration court proceedings are adversarial \u2014 a government attorney will argue against your case. Having strong evidence, prepared witnesses, and a clear legal strategy is critical. Understanding the judge\u2019s expectations and the specific grounds for your claim can significantly improve your chances.",
+    appeal: "Appeals to the Board of Immigration Appeals (BIA) must be filed within 30 days of the immigration judge\u2019s decision. A motion to reopen requires new evidence that was not available at the time of the hearing. Both have strict procedural requirements, and the legal arguments must be precise.",
+    ead: "Work authorization for asylum applicants depends on your filing date and case processing timeline. Current processing times for asylum EADs vary, and there may be options to expedite. Understanding your rights while your case is pending helps you plan financially and professionally."
+  },
+  deportation: {
+    nta: "A Notice to Appear is a serious legal document that begins removal proceedings. You have rights in this process, including the right to an attorney and the right to present a defense. Understanding the charges against you and the available defenses is the critical first step.",
+    hearing: "Immigration court hearings require careful preparation whether it is a master calendar hearing or an individual merits hearing. The evidence you present, witnesses you call, and legal arguments you make can determine whether you remain in the United States. Preparation is essential.",
+    detained: "When a family member is detained, the priority is understanding bond eligibility and options for release. Bond hearings consider flight risk and danger to the community. Acting quickly \u2014 within days, not weeks \u2014 can make a significant difference in how long your family member remains detained.",
+    order: "A final removal order is serious but may not be the end of the road. Motions to Reopen, stays of removal, and emergency relief options may be available depending on your circumstances and timing. If deportation is imminent, acting immediately is critical.",
+    voluntary: "Voluntary departure allows you to leave the US on your own terms instead of having a removal order on your record. However, it comes with a departure deadline, bond requirements, and a 10-year bar if you fail to leave. Understanding the long-term consequences of each option is essential."
+  },
+  other: {
+    citizenship: "The naturalization process requires meeting residency, physical presence, and moral character requirements. The interview includes a civics and English test, plus questions about your application. Most eligible applicants are approved, but certain issues (travel, arrests, tax problems) can cause delays or denials.",
+    renewal: "Visa extensions must be filed before your current status expires. USCIS processing times vary, and late filings can result in denial and potential status violations. Understanding your eligibility, timeline, and what to do if your status expires while waiting is important.",
+    travel: "Travel while immigration cases are pending carries specific risks depending on your status and case type. Some travel requires advance permission, and leaving without it can result in abandonment of your application. Understanding the rules for your specific situation is critical before booking any travel.",
+    ead: "Employment Authorization Document processing times have been unpredictable. If your EAD expires before your renewal is processed, you may have options for automatic extensions depending on your category. Understanding these rules prevents gaps in work authorization.",
+    general: "Immigration law intersects with many areas \u2014 tax obligations, criminal law, employment law, and more. Even routine questions can have unexpected implications for your immigration status. Getting accurate guidance specific to your situation helps you avoid costly mistakes."
+  }
+};
+
+/* ═══ CHAT ENGINE — SIMULATED PEARL ═══ */
+var chatState = 'idle';
+
+var chatRosterStats = {
+  h1b:{attorneys:23,cases:'1,240+',thisQ:'310+'},
+  greencard:{attorneys:31,cases:'2,100+',thisQ:'480+'},
+  family:{attorneys:27,cases:'1,870+',thisQ:'390+'},
+  daca:{attorneys:18,cases:'640+',thisQ:'150+'},
+  asylum:{attorneys:21,cases:'890+',thisQ:'210+'},
+  deportation:{attorneys:16,cases:'720+',thisQ:'170+'},
+  other:{attorneys:50,cases:'5,400+',thisQ:'1,200+'}
+};
+
+var chatVisaLabels = {h1b:'H-1B / Work Visa',greencard:'Green Card',family:'Family Immigration',
+  daca:'DACA / Dreamer',asylum:'Asylum / Refugee',deportation:'Removal / Deportation',other:'Other / Not Sure'};
+var chatVisaShort = {h1b:'H-1B',greencard:'Green Card',family:'Family',daca:'DACA',asylum:'Asylum',deportation:'Deportation',other:'Immigration'};
+
+var PEARL_IMG = "https://ww2-secure.justanswer.com/static/javatar/img/icons/Pearl_Tech_Avatar_32.jpg";
+
+function startChat(preselectedVisa) {
+  chatState = 'idle';
+  S.visaType = null; S.situation = null; S.detail = ''; S.urgency = null; S.expert = null;
+  document.getElementById('chatMessages').innerHTML = '';
+  document.getElementById('chatInputArea').style.display = 'none';
+  // Populate trust banner
+  var tbAv = document.getElementById('chatTrustAvatars');
+  tbAv.innerHTML = '';
+  experts.forEach(function(e){ tbAv.innerHTML += '<img src="'+e.photo+'" alt="">'; });
+  document.getElementById('chatTrustCount').textContent = '';
+  document.getElementById('chatTrustLabel').textContent = 'Verified immigration lawyers are online now';
+  goTo('chat');
+
+  setTimeout(function() {
+    addBotMsg("Hi! I\u2019m Pearl, and I\u2019m here to connect you with an immigration attorney who handles your exact case type.");
+    setTimeout(function() {
+      if (preselectedVisa) {
+        handleVisaChoice(preselectedVisa);
+      } else {
+        addBotMsg("What type of immigration matter do you need help with?");
+        setTimeout(function() {
+          addQR([
+            {v:'h1b',l:'\ud83d\udcbc H-1B / Work Visa'},{v:'greencard',l:'\ud83d\udfe2 Green Card'},
+            {v:'family',l:'\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67 Family Immigration'},{v:'daca',l:'\ud83d\udccb DACA / Dreamer'},
+            {v:'asylum',l:'\ud83d\udee1\ufe0f Asylum / Refugee'},{v:'deportation',l:'\u26a0\ufe0f Removal / Deportation'},
+            {v:'other',l:'\ud83d\udcdd Other / Not Sure'}
+          ],'visa');
+          chatState = 'visa-type';
+        }, 300);
+      }
+    }, 800);
+  }, 500);
+}
+
+function handleVisaChoice(value) {
+  S.visaType = value;
+  addUserMsg(chatVisaLabels[value] || value);
+  var qualified = experts.filter(function(e){ return e.handles.includes(S.visaType); });
+  S.expert = qualified[0] || experts[0];
+  // Update trust banner with specific count
+  var rs = chatRosterStats[S.visaType] || chatRosterStats.other;
+  document.getElementById('chatTrustCount').textContent = rs.attorneys;
+  document.getElementById('chatTrustLabel').textContent = 'verified ' + (chatVisaShort[S.visaType]||'immigration').toLowerCase() + ' lawyers are online now';
+
+  setTimeout(function() {
+    showTyping();
+    setTimeout(function() {
+      hideTyping();
+      var cfg = sitMap[S.visaType];
+      addBotMsg("Got it \u2014 " + (chatVisaLabels[S.visaType]||'').toLowerCase() + ". " + cfg.q);
+      setTimeout(function() {
+        addQR(cfg.opts.map(function(o){ return {v:o.v, l:o.i+' '+o.l}; }), 'situation');
+        chatState = 'situation';
+      }, 300);
+    }, 1000);
+  }, 400);
+}
+
+function handleSitChoice(value) {
+  S.situation = value;
+  var so = sitMap[S.visaType].opts.find(function(o){return o.v===value;});
+  addUserMsg(so ? so.l : value);
+
+  setTimeout(function() {
+    showTyping();
+    setTimeout(function() {
+      hideTyping();
+      addBotMsg("Thanks. Can you tell me a bit more about your specific situation? The more detail you share, the better your attorney can help.");
+      document.getElementById('chatInputArea').style.display = 'flex';
+      var inp = document.getElementById('chatInput');
+      inp.placeholder = getChatPlaceholder();
+      inp.focus();
+      setTimeout(function() {
+        addQR([{v:'skip',l:'Skip \u2014 connect me now'}],'describe');
+      }, 200);
+      chatState = 'describe';
+    }, 1200);
+  }, 400);
+}
+
+function getChatPlaceholder() {
+  var ph = {
+    h1b:"E.g., My H-1B was denied because USCIS said the role doesn't qualify as a specialty occupation...",
+    greencard:"E.g., I filed my I-485 three months ago and haven't heard back...",
+    family:"E.g., I'm a US citizen trying to sponsor my spouse who is currently overseas...",
+    daca:"E.g., My DACA expires in 4 months and I'm worried about the renewal timeline...",
+    asylum:"E.g., I arrived 8 months ago and need to file before the one-year deadline...",
+    deportation:"E.g., My family member received a Notice to Appear and we don't know what to do...",
+    other:"E.g., I want to apply for citizenship but I traveled abroad for 8 months last year..."
+  };
+  return ph[S.visaType] || "Describe your situation...";
+}
+
+function sendChatMessage() {
+  var inp = document.getElementById('chatInput');
+  var text = inp.value.trim();
+  if (!text || chatState !== 'describe') return;
+  S.detail = text;
+  inp.value = '';
+  inp.style.height = 'auto';
+  document.getElementById('chatInputArea').style.display = 'none';
+  removeQR();
+  addUserMsg(text);
+  showChatAssessment();
+}
+
+function handleDescribeSkip() {
+  document.getElementById('chatInputArea').style.display = 'none';
+  removeQR();
+  addUserMsg("Skip \u2014 connect me now");
+  showChatAssessment();
+}
+
+function showChatAssessment() {
+  chatState = 'assessing';
+  setTimeout(function() {
+    addBotMsg("Let me analyze your case\u2026");
+    showTyping();
+    setTimeout(function() {
+      hideTyping();
+      var sit = S.situation || Object.keys(caseAssessments[S.visaType]||{})[0];
+      var assessment = (caseAssessments[S.visaType]||{})[sit] || '';
+      addBotMsg(assessment);
+
+      setTimeout(function() {
+        addChatRosterCard();
+        setTimeout(function() {
+          addBotMsg("One last thing \u2014 how urgent is your situation?");
+          setTimeout(function() {
+            addQR([
+              {v:'emergency',l:'\ud83d\udea8 Immediate'},{v:'this-week',l:'\u23f0 This Week'},
+              {v:'this-month',l:'\ud83d\udcc5 This Month'},{v:'no-rush',l:'\ud83e\uddd8 No Rush'}
+            ],'urgency');
+            chatState = 'urgency';
+          }, 300);
+        }, 600);
+      }, 800);
+    }, 2500);
+  }, 400);
+}
+
+function handleUrgChoice(value) {
+  S.urgency = value;
+  var ul = {emergency:'Immediate','this-week':'This Week','this-month':'This Month','no-rush':'No Rush'};
+  addUserMsg(ul[value] || value);
+
+  setTimeout(function() {
+    showTyping();
+    setTimeout(function() {
+      hideTyping();
+      addBotMsg("Perfect. I\u2019ve got everything I need. You\u2019re ready to connect with one of our verified immigration attorneys.");
+      setTimeout(function() { addChatCtaCard(); chatState = 'ready'; }, 500);
+    }, 800);
+  }, 400);
+}
+
+/* ── Chat UI helpers ── */
+function addBotMsg(text) {
+  var m = document.createElement('div');
+  m.className = 'chat-msg chat-msg-bot';
+  m.innerHTML = '<div class="chat-msg-avatar"><img src="'+PEARL_IMG+'" alt=""></div><div class="chat-bubble">' + esc(text) + '</div>';
+  document.getElementById('chatMessages').appendChild(m);
+  scrollChat();
+}
+
+function addUserMsg(text) {
+  var m = document.createElement('div');
+  m.className = 'chat-msg chat-msg-user';
+  m.innerHTML = '<div class="chat-bubble">' + esc(text) + '</div>';
+  document.getElementById('chatMessages').appendChild(m);
+  scrollChat();
+}
+
+function addQR(options, type) {
+  var c = document.createElement('div');
+  c.className = 'chat-quick-replies'; c.id = 'chatQR';
+  options.forEach(function(o) {
+    var b = document.createElement('button');
+    b.className = 'chat-qr'; b.textContent = o.l;
+    b.onclick = function() {
+      c.remove();
+      var label = o.l.replace(/^[^\s]+\s/,'');
+      if (type==='visa') handleVisaChoice(o.v);
+      else if (type==='situation') handleSitChoice(o.v);
+      else if (type==='describe') handleDescribeSkip();
+      else if (type==='urgency') handleUrgChoice(o.v);
+    };
+    c.appendChild(b);
+  });
+  document.getElementById('chatMessages').appendChild(c);
+  scrollChat();
+}
+
+function removeQR() { var q=document.getElementById('chatQR'); if(q)q.remove(); }
+
+function showTyping() {
+  var m = document.createElement('div');
+  m.className='chat-msg chat-msg-bot'; m.id='chatTyping';
+  m.innerHTML='<div class="chat-msg-avatar"><img src="'+PEARL_IMG+'" alt=""></div><div class="chat-typing"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>';
+  document.getElementById('chatMessages').appendChild(m);
+  scrollChat();
+}
+
+function hideTyping() { var e=document.getElementById('chatTyping'); if(e)e.remove(); }
+
+function addChatRosterCard() {
+  var rs = chatRosterStats[S.visaType] || chatRosterStats.other;
+  var label = chatVisaShort[S.visaType] || 'Immigration';
+  var card = document.createElement('div'); card.className = 'chat-card';
+  var h = '<div class="chat-card-title">' + rs.attorneys + ' attorneys specialize in ' + esc(label) + ' cases</div>';
+  h += '<div class="chat-roster-avatars">';
+  experts.forEach(function(e){ h += '<img class="chat-roster-avatar" src="'+esc(e.photo)+'" alt="'+esc(e.name)+'">'; });
+  h += '<div class="chat-roster-more">+'+(rs.attorneys-3)+'</div></div>';
+  h += '<div class="chat-roster-stats">';
+  h += '<div class="chat-roster-stat"><div class="chat-roster-stat-num">'+rs.cases+'</div><div class="chat-roster-stat-label">'+esc(label)+' cases handled</div></div>';
+  h += '<div class="chat-roster-stat"><div class="chat-roster-stat-num">'+rs.thisQ+'</div><div class="chat-roster-stat-label">This quarter</div></div>';
+  h += '<div class="chat-roster-stat"><div class="chat-roster-stat-num">4.8\u2605</div><div class="chat-roster-stat-label">Avg rating</div></div>';
+  h += '<div class="chat-roster-stat"><div class="chat-roster-stat-num">4 min</div><div class="chat-roster-stat-label">Avg response</div></div>';
+  h += '</div>';
+  card.innerHTML = h;
+  document.getElementById('chatMessages').appendChild(card);
+  scrollChat();
+}
+
+function addChatCtaCard() {
+  var card = document.createElement('div'); card.className = 'chat-cta-card';
+  var h = '<div class="chat-cta-title">Ready to connect with your attorney</div>';
+  h += '<div class="chat-cta-sub">Your consultation includes unlimited follow-up questions</div>';
+  h += '<div class="chat-cta-price"><strong>$65 today</strong> \u00b7 vs. $300\u2013500/hr at a firm</div>';
+  h += '<button class="chat-cta-btn" onclick="proceedToPayment()">Connect with an Attorney Now</button>';
+  h += '<div class="chat-cta-tp">\u2605\u2605\u2605\u2605\u2605 Trusted by 11,000+ users on Trustpilot</div>';
+  card.innerHTML = h;
+  document.getElementById('chatMessages').appendChild(card);
+  scrollChat();
+}
+
+function proceedToPayment() {
+  document.getElementById('cName').textContent = 'Your Immigration Attorney';
+  experts.forEach(function(e,i) {
+    var el = document.getElementById('cPhoto'+(i+1));
+    if(el) el.src = e.photo;
+  });
+  goTo('payment');
+}
+
+function scrollChat() {
+  var el = document.getElementById('chatMessages');
+  setTimeout(function(){ el.scrollTop = el.scrollHeight; }, 50);
+}
+
+/* ── Payment — populate expert strip and value proposition ── */
+function populatePayExpert() {
+  const ex = S.expert;
+  if (!ex) return;
+
+  // Expert strip — stacked avatars, not a single face
+  var avatarsEl = document.getElementById('payExAvatars');
+  avatarsEl.innerHTML = '';
+  experts.forEach(function(e){ avatarsEl.innerHTML += '<img src="' + esc(e.photo) + '" alt="' + esc(e.name) + '">'; });
+  document.getElementById('payExName').textContent = 'Immigration attorneys ready to help';
+  document.getElementById('payExMeta').textContent = ex.cases + ' people helped by attorneys like yours';
+
+  // Value proposition title
+  const vl = {h1b:'H-1B / Work Visa',greencard:'Green Card',family:'Family Immigration',
+    daca:'DACA / Dreamer',asylum:'Asylum / Refugee',deportation:'Removal / Deportation',other:'Immigration'};
+  const caseLabel = vl[S.visaType] || 'Immigration';
+  document.getElementById('payValueTitle').textContent = 'Your ' + caseLabel + ' consultation includes:';
+
+  // Value list — specific consultation items + generic benefits
+  const valueList = document.getElementById('payValueList');
+  valueList.innerHTML = '';
+  const sit = S.situation || Object.keys(consultPlans[S.visaType] || {})[0];
+  const plans = consultPlans[S.visaType]?.[sit] || consultPlans[S.visaType]?.[Object.keys(consultPlans[S.visaType])[0]] || [];
+  const items = plans.slice(0, 3);
+  items.push('Unlimited follow-up questions with your attorney');
+  items.push('Responses within minutes, not days');
+  items.forEach(p => {
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="check">\u2713</span> ' + esc(p);
+    valueList.appendChild(li);
+  });
+}
+
+function handlePay() {
+  const em=document.getElementById('fEmail').value.trim();
+  const c=document.getElementById('fCard').value.trim();
+  const e=document.getElementById('fExp').value.trim();
+  const v=document.getElementById('fCvc').value.trim();
+  const z=document.getElementById('fZip').value.trim();
+  if(!em||!c||!e||!v||!z){alert('Please fill in all payment fields');return;}
+  goTo('confirmation');
+}
+
+function setupCards() {
+  document.getElementById('fCard').addEventListener('input',e=>{
+    let v=e.target.value.replace(/\D/g,'').substring(0,16);
+    e.target.value=v.replace(/(\d{4})(?=\d)/g,'$1 ');
+  });
+  document.getElementById('fExp').addEventListener('input',e=>{
+    let v=e.target.value.replace(/\D/g,'').substring(0,4);
+    if(v.length>=2) v=v.substring(0,2)+' / '+v.substring(2);
+    e.target.value=v;
+  });
+  document.getElementById('fCvc').addEventListener('input',e=>{
+    e.target.value=e.target.value.replace(/\D/g,'').substring(0,4);
+  });
+}
+
+/* ── Reset ── */
+function reset() {
+  S.visaType=null;S.situation=null;S.detail='';S.urgency=null;S.expert=null;
+  chatState='idle';
+  document.getElementById('chatMessages').innerHTML='';
+  document.getElementById('chatInputArea').style.display='none';
+  ['fEmail','fCard','fExp','fCvc','fZip'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  goTo('landing');
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setupCards();
+  // Sticky CTA: show when scrolled past hero on landing page
+  var hero = document.querySelector('.hero');
+  var sticky = document.getElementById('stickyCta');
+  if (hero && sticky) {
+    var observer = new IntersectionObserver(function(entries) {
+      var landing = document.getElementById('s-landing');
+      if (landing && landing.classList.contains('active')) {
+        sticky.classList.toggle('visible', !entries[0].isIntersecting);
+      }
+    }, { threshold: 0 });
+    observer.observe(hero);
+  }
+  // Chat input: Enter to send, auto-resize
+  var chatInp = document.getElementById('chatInput');
+  if (chatInp) {
+    chatInp.addEventListener('keydown', function(e) {
+      if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+    });
+    chatInp.addEventListener('input', function() {
+      this.style.height='auto';
+      this.style.height=Math.min(this.scrollHeight,100)+'px';
+    });
+  }
+});
+</script>
+</body>
+</html>
