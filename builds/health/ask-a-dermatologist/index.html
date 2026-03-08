@@ -733,6 +733,178 @@ button { cursor: pointer; font-family: inherit; }
   max-width: 340px;
 }
 
+/* ── TRUST STRIP ───────────────────────── */
+.trust-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+.trust-strip-photos {
+  display: flex;
+  flex-shrink: 0;
+}
+.trust-strip-photos img {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  object-fit: cover;
+}
+.trust-strip-photos img + img { margin-left: -8px; }
+.trust-strip-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+.trust-strip-tp {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── EXPERT REVEAL ─────────────────────── */
+.expert-reveal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+.expert-reveal-header {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.expert-reveal-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.expert-reveal-photo {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  flex-shrink: 0;
+}
+.expert-reveal-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.expert-reveal-title {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.expert-reveal-stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── TESTIMONIALS ──────────────────────── */
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.testimonial {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.testimonial-stars {
+  color: #f59e0b;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.testimonial-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  font-style: italic;
+}
+.testimonial-author {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.testimonial-source {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ── PRICE ANCHOR ──────────────────────── */
+.price-anchor {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.price-anchor-label {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.price-anchor-savings {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-light);
+  border-radius: 99px;
+  padding: 2px 10px;
+  margin-left: 6px;
+}
+
+/* ── ALL-QUESTIONS SINGLE PAGE ─────────── */
+.questions-all {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.question-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.question-block-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.question-block-text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.question-block .option-btn {
+  font-size: 14px;
+  padding: 12px 14px;
+}
+
 /* ── RESPONSIVE ────────────────────────── */
 @media (min-width: 600px) {
   .container { padding: 0 32px; }
@@ -759,6 +931,18 @@ button { cursor: pointer; font-family: inherit; }
       <p class="hero-sub">Upload a photo of your skin concern. Our AI will provide an initial assessment, then connect you with a board-certified dermatologist.</p>
     </div>
 
+    <div class="trust-strip">
+      <div class="trust-strip-photos">
+        <img src="https://www.justanswer.com/uploads/ED/edhelp/2016-6-16_135735_rosh.64x64.jpg" alt="Dr. Josh">
+        <img src="https://www.justanswer.com/uploads/DR/drcindymd/2020-12-15_73352_otoliaubscriptiononthly.64x64.jpg" alt="Dr. Cindy">
+        <img src="https://www.justanswer.com/uploads/DR/drdago/2019-2-18_35646_onilla.64x64.jpg" alt="Dr. DAGO">
+      </div>
+      <div class="trust-strip-text">
+        Board-certified doctors review every case
+        <span class="trust-strip-tp">★ 4.7 on Trustpilot · 3,800+ reviews</span>
+      </div>
+    </div>
+
     <div class="upload-zone" id="uploadZone">
       <input type="file" id="fileInput" accept="image/*" hidden>
       <div class="upload-placeholder">
@@ -778,6 +962,19 @@ button { cursor: pointer; font-family: inherit; }
       <div class="trust-item"><span class="trust-icon">🔒</span> Private & Secure</div>
       <div class="trust-item"><span class="trust-icon">⚡</span> Results in seconds</div>
       <div class="trust-item"><span class="trust-icon">👨‍⚕️</span> Board-certified MDs</div>
+    </div>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Very easy and quick to get ahold of a provider. I felt listened to and supported. I was also able to share a picture which helped."</div>
+        <div class="testimonial-author">Jennie <span class="testimonial-source">· verified on Trustpilot</span></div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"I waited to see if what was recommended actually worked. It did! I highly recommend this service for quick help."</div>
+        <div class="testimonial-author">Sherry B. <span class="testimonial-source">· verified on Trustpilot</span></div>
+      </div>
     </div>
 
     <p class="disclaimer">This AI assessment is not a medical diagnosis. Always consult a licensed healthcare professional for medical advice.</p>
@@ -826,8 +1023,20 @@ button { cursor: pointer; font-family: inherit; }
       </div>
     </div>
 
-    <button class="continue-btn" onclick="goToStep('questions')">
-      Continue — Answer a Few Questions for the Doctor
+    <div class="expert-reveal" id="expertReveal">
+      <div class="expert-reveal-header">Your Case Will Be Reviewed By</div>
+      <div class="expert-reveal-card">
+        <img class="expert-reveal-photo" id="expertPhoto" alt="" src="">
+        <div>
+          <div class="expert-reveal-name" id="expertName"></div>
+          <div class="expert-reveal-title" id="expertTitle"></div>
+          <div class="expert-reveal-stats" id="expertStats"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="continue-btn" id="assessmentContinueBtn">
+      Continue — Answer a Few Quick Questions
     </button>
 
     <p class="disclaimer" style="margin-top:12px">AI-powered screening · Not a diagnosis · Expert review recommended</p>
@@ -835,16 +1044,15 @@ button { cursor: pointer; font-family: inherit; }
 
   <!-- ═══ STEP 4: FOLLOW-UP QUESTIONS ═══ -->
   <div id="step-questions" class="step">
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="question-header" id="questionHeader">Question 1 of 4</div>
-    <div class="question-text" id="questionText"></div>
-    <div class="options-list" id="optionsList"></div>
-    <div class="additional-input">
+    <div style="font-size:13px;color:var(--muted);font-weight:600;margin-bottom:6px">Help your doctor understand more</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:20px">A few quick questions</div>
+    <div class="questions-all" id="questionsAll"></div>
+    <div class="additional-input" style="margin-top:20px">
       <label class="additional-label" for="additionalNotes">Anything else to add? (optional)</label>
       <textarea class="additional-textarea" id="additionalNotes" placeholder="E.g., any recent changes, medications..."></textarea>
     </div>
     <div class="question-nav">
-      <button class="continue-btn" id="nextQuestionBtn" onclick="nextQuestion()" disabled>Next</button>
+      <button class="continue-btn" id="submitQuestionsBtn" onclick="submitAllQuestions()">Continue to Connect with Doctor</button>
     </div>
   </div>
 
@@ -863,15 +1071,19 @@ button { cursor: pointer; font-family: inherit; }
 
     <div class="payment-section">
       <div class="payment-header">
-        <div class="payment-title">Connect with a Dermatologist</div>
-        <div class="payment-subtitle">A board-certified dermatologist will review your case in minutes</div>
+        <div class="payment-title" id="paymentTitle">Connect with a Dermatologist</div>
+        <div class="payment-subtitle" id="paymentSubtitle">A board-certified dermatologist will review your case in minutes</div>
       </div>
       <div class="payment-body">
+        <div class="price-anchor">
+          <span class="price-anchor-label">Avg. dermatologist visit: $150–$300</span>
+          <span class="price-anchor-savings">Save 96%</span>
+        </div>
         <div class="price-row">
           <span class="price-amount">$5</span>
           <span class="price-period">one-time</span>
         </div>
-        <p class="price-note">Get started for $5 · Then $59/month for unlimited expert access · Cancel anytime</p>
+        <p class="price-note">Get a professional consultation for $5 · Then $59/month for unlimited 24/7 access · Cancel anytime</p>
 
         <div class="form-group">
           <label class="form-label" for="cardName">Name on Card</label>
@@ -892,7 +1104,7 @@ button { cursor: pointer; font-family: inherit; }
           </div>
         </div>
 
-        <button class="pay-btn" onclick="handlePayment()">Start My Consultation — $5</button>
+        <button class="pay-btn" id="payBtn" onclick="handlePayment()">Start My Consultation — $5</button>
 
         <div class="payment-trust">
           <div class="payment-trust-item">🔒 256-bit SSL</div>
@@ -945,8 +1157,37 @@ const state = {
   imageUrl: null,       // object URL for preview
   analysis: null,       // parsed JSON from Gemini
   answers: [],          // [{question, answer, notes}]
-  currentQ: 0
+  currentQ: 0,
+  selectedExpert: null
 };
+
+// ── EXPERT DATA ────────────────────────────
+const EXPERTS = [
+  {
+    name: 'Dr. Josh',
+    title: 'Board Certified MD · Dermatology',
+    photo: 'https://www.justanswer.com/uploads/ED/edhelp/2016-6-16_135735_rosh.64x64.jpg',
+    years: 19,
+    satisfied: '40,500+',
+    rating: 4.76
+  },
+  {
+    name: 'Dr. Cindy',
+    title: 'Board Certified MD',
+    photo: 'https://www.justanswer.com/uploads/DR/drcindymd/2020-12-15_73352_otoliaubscriptiononthly.64x64.jpg',
+    years: 7,
+    satisfied: '24,500+',
+    rating: 4.7
+  },
+  {
+    name: 'Dr. DAGO',
+    title: 'Board Certified Physician · Internal Medicine',
+    photo: 'https://www.justanswer.com/uploads/DR/drdago/2019-2-18_35646_onilla.64x64.jpg',
+    years: 10,
+    satisfied: '102,100+',
+    rating: 4.37
+  }
+];
 
 const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
@@ -972,7 +1213,7 @@ Analyze the uploaded skin image and respond with ONLY valid JSON in this exact f
 
 IMPORTANT RULES:
 - List 2-3 possibilities, from most to least likely
-- Generate exactly 4 follow-up questions that are relevant to what you observe in this specific image
+- Generate exactly 2 follow-up questions that are relevant to what you observe in this specific image
 - Each question should have 3-4 multiple choice options
 - Questions should gather info useful to a dermatologist: duration, symptoms, history, triggers, changes, etc.
 - Be reassuring but honest — never minimize a genuinely concerning finding
@@ -1182,72 +1423,97 @@ function renderAssessment() {
 
   // Recommendation
   document.getElementById('recommendationText').textContent = a.recommendation;
+
+  // Select and reveal expert
+  selectExpert();
+  renderExpertReveal();
 }
 
-// ── FOLLOW-UP QUESTIONS ────────────────────
-function renderQuestion() {
+// ── EXPERT SELECTION & REVEAL ──────────────
+function selectExpert() {
+  state.selectedExpert = EXPERTS[Math.floor(Math.random() * EXPERTS.length)];
+}
+
+function renderExpertReveal() {
+  const e = state.selectedExpert;
+  document.getElementById('expertPhoto').src = e.photo;
+  document.getElementById('expertPhoto').alt = e.name;
+  document.getElementById('expertName').textContent = e.name;
+  document.getElementById('expertTitle').textContent = e.title;
+  document.getElementById('expertStats').innerHTML =
+    `<span>★ ${e.rating}</span><span>${e.satisfied} helped</span><span>${e.years}yr exp.</span>`;
+
+  // Update assessment continue button
+  document.getElementById('assessmentContinueBtn').textContent =
+    `Answer 2 Quick Questions for ${e.name}`;
+
+  // Update payment screen with expert name
+  document.getElementById('paymentTitle').textContent = `Connect with ${e.name}`;
+  document.getElementById('paymentSubtitle').textContent =
+    `${e.title} · will review your case in minutes`;
+  document.getElementById('payBtn').textContent =
+    `Start My Consultation with ${e.name} — $5`;
+}
+
+// ── FOLLOW-UP QUESTIONS (all on one page) ──
+function renderAllQuestions() {
   const questions = state.analysis.follow_up_questions || [];
-  const total = questions.length;
-  const idx = state.currentQ;
+  const container = document.getElementById('questionsAll');
+  container.innerHTML = '';
 
-  if (idx >= total) {
-    renderSummary();
-    goToStep('payment');
-    return;
-  }
+  questions.forEach((q, idx) => {
+    const block = document.createElement('div');
+    block.className = 'question-block';
+    block.dataset.qIndex = idx;
 
-  const q = questions[idx];
-
-  // Progress bar
-  const bar = document.getElementById('progressBar');
-  bar.innerHTML = '';
-  for (let i = 0; i < total; i++) {
-    const seg = document.createElement('div');
-    seg.className = 'progress-segment' + (i < idx ? ' filled' : '') + (i === idx ? ' current' : '');
-    bar.appendChild(seg);
-  }
-
-  document.getElementById('questionHeader').textContent = `Question ${idx + 1} of ${total}`;
-  document.getElementById('questionText').textContent = q.question;
-
-  // Options
-  const list = document.getElementById('optionsList');
-  list.innerHTML = '';
-  (q.options || []).forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = opt;
-    btn.addEventListener('click', () => {
-      list.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      document.getElementById('nextQuestionBtn').disabled = false;
+    let optionsHtml = '';
+    (q.options || []).forEach(opt => {
+      optionsHtml += `<button class="option-btn" onclick="selectQuestionOption(this)">${escapeHtml(opt)}</button>`;
     });
-    list.appendChild(btn);
+
+    block.innerHTML = `
+      <div class="question-block-num">Question ${idx + 1}</div>
+      <div class="question-block-text">${escapeHtml(q.question)}</div>
+      <div class="options-list">${optionsHtml}</div>
+    `;
+    container.appendChild(block);
   });
 
-  document.getElementById('additionalNotes').value = '';
-  document.getElementById('nextQuestionBtn').disabled = true;
-  document.getElementById('nextQuestionBtn').textContent = idx === total - 1 ? 'See Results' : 'Next';
+  // Update submit button with expert name
+  if (state.selectedExpert) {
+    document.getElementById('submitQuestionsBtn').textContent =
+      `Continue to Connect with ${state.selectedExpert.name}`;
+  }
 }
 
-function nextQuestion() {
-  const selected = document.querySelector('.option-btn.selected');
-  if (!selected) return;
+function selectQuestionOption(btn) {
+  const block = btn.closest('.question-block');
+  block.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
 
+function submitAllQuestions() {
   const questions = state.analysis.follow_up_questions || [];
-  state.answers.push({
-    question: questions[state.currentQ].question,
-    answer: selected.textContent,
-    notes: document.getElementById('additionalNotes').value.trim()
+  const blocks = document.querySelectorAll('.question-block');
+  state.answers = [];
+
+  blocks.forEach((block, idx) => {
+    const selected = block.querySelector('.option-btn.selected');
+    state.answers.push({
+      question: questions[idx] ? questions[idx].question : '',
+      answer: selected ? selected.textContent : 'Not answered',
+      notes: ''
+    });
   });
 
-  state.currentQ++;
-  if (state.currentQ >= questions.length) {
-    renderSummary();
-    goToStep('payment');
-  } else {
-    renderQuestion();
+  // Add additional notes to last answer
+  const notes = document.getElementById('additionalNotes').value.trim();
+  if (notes && state.answers.length > 0) {
+    state.answers[state.answers.length - 1].notes = notes;
   }
+
+  renderSummary();
+  goToStep('payment');
 }
 
 // ── SUMMARY ────────────────────────────────
@@ -1314,6 +1580,7 @@ function resetFlow() {
   state.analysis = null;
   state.answers = [];
   state.currentQ = 0;
+  state.selectedExpert = null;
 
   document.getElementById('uploadZone').classList.remove('has-image');
   document.getElementById('analyzeBtn').classList.remove('visible');
@@ -1325,14 +1592,19 @@ function resetFlow() {
   document.getElementById('cardCvc').value = '';
   document.getElementById('additionalNotes').value = '';
 
+  // Reset payment UI to defaults
+  document.getElementById('paymentTitle').textContent = 'Connect with a Dermatologist';
+  document.getElementById('paymentSubtitle').textContent = 'A board-certified dermatologist will review your case in minutes';
+  document.getElementById('payBtn').textContent = 'Start My Consultation — $5';
+
   goToStep('upload');
 }
 
 // Transition from assessment to questions
 document.querySelector('#step-assessment .continue-btn').addEventListener('click', () => {
-  state.currentQ = 0;
   state.answers = [];
-  renderQuestion();
+  renderAllQuestions();
+  goToStep('questions');
 });
 
 // ── UTIL ──────────────────────────────────
