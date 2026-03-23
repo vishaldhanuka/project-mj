@@ -1170,8 +1170,11 @@ const EXPERTS = [
   }
 ];
 
-const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
-const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+const GEMINI_MODELS = [
+  'gemini-3.1-flash-lite-preview',  // primary — newest, cheapest
+  'gemini-2.5-flash'                // fallback — stable, proven multimodal
+];
+const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 const ANALYSIS_PROMPT = `You are an AI assistant for Javatar Health, acting as a dermatologist's assistant performing an initial screening. You are empathetic, clear, and professional. You do NOT diagnose — instead you give observations and possibilities.
 
@@ -1317,15 +1320,39 @@ function goToStep(name) {
 }
 
 // ── ANALYSIS ───────────────────────────────
+async function callGemini(model, apiKey) {
+  const url = `${GEMINI_BASE}/${model}:generateContent?key=${apiKey}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{
+        parts: [
+          { text: ANALYSIS_PROMPT },
+          { inlineData: { mimeType: state.imageMimeType, data: state.imageData } }
+        ]
+      }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.4
+      }
+    })
+  });
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData?.error?.message || `HTTP ${response.status}`);
+  }
+  const data = await response.json();
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error('No response from AI model');
+  return JSON.parse(text);
+}
+
 async function startAnalysis() {
   const apiKey = localStorage.getItem('gemini_api_key');
-  if (!apiKey) {
-    toggleModal();
-    return;
-  }
+  if (!apiKey) { toggleModal(); return; }
   if (!state.imageData) return;
 
-  // Switch to analyzing screen
   goToStep('analyzing');
   document.getElementById('analyzingThumb').src = state.imageUrl;
   document.getElementById('analyzeSpinner').style.display = 'block';
@@ -1333,44 +1360,27 @@ async function startAnalysis() {
   document.getElementById('analyzeSubText').textContent = 'Our AI is reviewing your skin concern';
   document.getElementById('errorBox').classList.remove('visible');
 
-  try {
-    const response = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            { text: ANALYSIS_PROMPT },
-            { inlineData: { mimeType: state.imageMimeType, data: state.imageData } }
-          ]
-        }],
-        generationConfig: {
-          responseMimeType: 'application/json',
-          temperature: 0.4
-        }
-      })
-    });
-
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      const errMsg = errData?.error?.message || `HTTP ${response.status}`;
-      throw new Error(errMsg);
+  let lastErr;
+  for (const model of GEMINI_MODELS) {
+    try {
+      state.analysis = await callGemini(model, apiKey);
+      renderAssessment();
+      goToStep('assessment');
+      return;
+    } catch (err) {
+      lastErr = err;
+      console.warn(`Model ${model} failed: ${err.message}`);
+      // Update UI and try next model
+      document.getElementById('analyzeSubText').textContent =
+        `Switching to backup model...`;
     }
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) throw new Error('No response from AI model');
-
-    state.analysis = JSON.parse(text);
-    renderAssessment();
-    goToStep('assessment');
-  } catch (err) {
-    document.getElementById('analyzeSpinner').style.display = 'none';
-    document.getElementById('analyzeStatusText').textContent = '';
-    document.getElementById('analyzeSubText').textContent = '';
-    document.getElementById('errorBox').classList.add('visible');
-    document.getElementById('errorMsg').textContent = err.message;
   }
+  // All models failed
+  document.getElementById('analyzeSpinner').style.display = 'none';
+  document.getElementById('analyzeStatusText').textContent = '';
+  document.getElementById('analyzeSubText').textContent = '';
+  document.getElementById('errorBox').classList.add('visible');
+  document.getElementById('errorMsg').textContent = lastErr.message;
 }
 
 // ── RENDER ASSESSMENT ──────────────────────
@@ -1536,10 +1546,6 @@ function resetFlow() {
   document.getElementById('analyzeBtn').classList.remove('visible');
   document.getElementById('uploadPreview').src = '';
   document.getElementById('fileInput').value = '';
-  document.getElementById('cardName').value = '';
-  document.getElementById('cardNumber').value = '';
-  document.getElementById('cardExpiry').value = '';
-  document.getElementById('cardCvc').value = '';
   document.getElementById('additionalNotes').value = '';
 
   // Reset payment UI to defaults
