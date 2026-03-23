@@ -1085,25 +1085,6 @@ button { cursor: pointer; font-family: inherit; }
         </div>
         <p class="price-note">Get a professional consultation for $5 · Then $59/month for unlimited 24/7 access · Cancel anytime</p>
 
-        <div class="form-group">
-          <label class="form-label" for="cardName">Name on Card</label>
-          <input class="form-input" id="cardName" type="text" placeholder="John Smith" autocomplete="cc-name">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="cardNumber">Card Number</label>
-          <input class="form-input" id="cardNumber" type="text" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" inputmode="numeric">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="cardExpiry">Expiry</label>
-            <input class="form-input" id="cardExpiry" type="text" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" inputmode="numeric">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="cardCvc">CVC</label>
-            <input class="form-input" id="cardCvc" type="text" placeholder="123" maxlength="4" autocomplete="cc-csc" inputmode="numeric">
-          </div>
-        </div>
-
         <button class="pay-btn" id="payBtn" onclick="handlePayment()">Start My Consultation — $5</button>
 
         <div class="payment-trust">
@@ -1111,7 +1092,7 @@ button { cursor: pointer; font-family: inherit; }
           <div class="payment-trust-item">💰 Money-back guarantee</div>
           <div class="payment-trust-item">🚫 Cancel anytime</div>
         </div>
-        <p class="cancel-note">Your card will be charged a one-time fee of $5 today. Your subscription will then renew at $59/month. Cancel anytime.</p>
+        <p class="cancel-note">$5 one-time fee today. Then $59/month for unlimited 24/7 access. Cancel anytime.</p>
       </div>
     </div>
   </div>
@@ -1224,7 +1205,6 @@ IMPORTANT RULES:
 document.addEventListener('DOMContentLoaded', () => {
   updateKeyStatus();
   setupUpload();
-  setupCardFormatting();
 });
 
 // ── API KEY MANAGEMENT ─────────────────────
@@ -1539,37 +1519,7 @@ function renderSummary() {
 
 // ── PAYMENT (SIMULATED) ───────────────────
 function handlePayment() {
-  const name = document.getElementById('cardName').value.trim();
-  const number = document.getElementById('cardNumber').value.trim();
-  const expiry = document.getElementById('cardExpiry').value.trim();
-  const cvc = document.getElementById('cardCvc').value.trim();
-
-  if (!name || !number || !expiry || !cvc) {
-    alert('Please fill in all payment fields');
-    return;
-  }
   goToStep('confirmation');
-}
-
-// ── CARD INPUT FORMATTING ─────────────────
-function setupCardFormatting() {
-  const cardNum = document.getElementById('cardNumber');
-  cardNum.addEventListener('input', (e) => {
-    let v = e.target.value.replace(/\D/g, '').substring(0, 16);
-    e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
-  });
-
-  const expiry = document.getElementById('cardExpiry');
-  expiry.addEventListener('input', (e) => {
-    let v = e.target.value.replace(/\D/g, '').substring(0, 4);
-    if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
-    e.target.value = v;
-  });
-
-  const cvc = document.getElementById('cardCvc');
-  cvc.addEventListener('input', (e) => {
-    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
-  });
 }
 
 // ── RESET FLOW ────────────────────────────

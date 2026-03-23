@@ -719,50 +719,23 @@ a{-webkit-tap-highlight-color:transparent}
         <div class="pay-value-cancel">Includes 30-day membership — unlimited follow-ups. Cancel anytime.</div>
       </div>
 
-      <!-- CC form — framed as final step, not primary focus -->
-      <div class="pay-card">
-        <div class="pay-hdr">
-          <div class="pay-hdr-title">Enter your details to start</div>
-        </div>
-        <div class="pay-body">
-          <div class="fg">
-            <label class="fl" for="fEmail">Email</label>
-            <input class="fi" id="fEmail" type="email" placeholder="example@email.com" autocomplete="email">
-          </div>
-          <div class="fg">
-            <label class="fl" for="fCard">Credit card number</label>
-            <input class="fi" id="fCard" type="text" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number" inputmode="numeric">
-          </div>
-          <div class="fr-3">
-            <div class="fg">
-              <label class="fl" for="fExp">Expiration</label>
-              <input class="fi" id="fExp" type="text" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" inputmode="numeric">
-            </div>
-            <div class="fg">
-              <label class="fl" for="fCvc">Security code</label>
-              <input class="fi" id="fCvc" type="text" placeholder="CVV" maxlength="4" autocomplete="cc-csc" inputmode="numeric">
-            </div>
-            <div class="fg">
-              <label class="fl" for="fZip">ZIP / Postal code</label>
-              <input class="fi" id="fZip" type="text" placeholder="12345" maxlength="10" autocomplete="postal-code" inputmode="numeric">
-            </div>
-          </div>
-
-          <p class="pay-legal">By clicking "Start Consultation", I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, and to be charged <strong>$65 today</strong>. Includes a 30-day membership that renews monthly until canceled. Cancel anytime from My Account.</p>
+      <!-- CTA button -->
+      <div class="pay-card" style="box-shadow:none;border:none;background:transparent">
+        <div class="pay-body" style="padding:0">
+          <p class="pay-legal">By clicking "Start Consultation", I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. Includes a 30-day membership at <strong>$65</strong> that renews monthly until canceled. Cancel anytime.</p>
 
           <div class="pay-cta-row">
-            <button class="btn" onclick="handlePay()">Start Consultation</button>
+            <button class="btn" onclick="handlePay()">Start Consultation — $65</button>
             <svg class="pay-badge-verified" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" fill="#f0faf5" stroke="#00a67e" stroke-width="2"/><path d="M15 25l6 6 12-12" stroke="#00a67e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="24" y="44" text-anchor="middle" fill="#00a67e" font-size="5" font-weight="700" font-family="Inter,sans-serif">100%</text></svg>
           </div>
           <button class="btn btn-outline" style="margin-top:8px" onclick="goTo('chat')">Back</button>
 
           <div class="pay-tp-bar">★★★★★ <strong>Rated 4.8/5</strong> on Trustpilot · 11,000+ verified reviews</div>
-          <p class="pay-secure">🔒 Your information is secure.</p>
 
           <div class="pay-trust">
             <span class="pay-trust-badge">✅ BBB Accredited</span>
             <span class="pay-trust-badge">⭐ Google 4.9</span>
-            <span class="pay-trust-badge">🔐 DigiCert Secured</span>
+            <span class="pay-trust-badge">🔐 100% Satisfaction Guarantee</span>
           </div>
         </div>
       </div>
@@ -1312,28 +1285,7 @@ function populatePayExpert() {
 }
 
 function handlePay() {
-  const em=document.getElementById('fEmail').value.trim();
-  const c=document.getElementById('fCard').value.trim();
-  const e=document.getElementById('fExp').value.trim();
-  const v=document.getElementById('fCvc').value.trim();
-  const z=document.getElementById('fZip').value.trim();
-  if(!em||!c||!e||!v||!z){alert('Please fill in all payment fields');return;}
   goTo('confirmation');
-}
-
-function setupCards() {
-  document.getElementById('fCard').addEventListener('input',e=>{
-    let v=e.target.value.replace(/\D/g,'').substring(0,16);
-    e.target.value=v.replace(/(\d{4})(?=\d)/g,'$1 ');
-  });
-  document.getElementById('fExp').addEventListener('input',e=>{
-    let v=e.target.value.replace(/\D/g,'').substring(0,4);
-    if(v.length>=2) v=v.substring(0,2)+' / '+v.substring(2);
-    e.target.value=v;
-  });
-  document.getElementById('fCvc').addEventListener('input',e=>{
-    e.target.value=e.target.value.replace(/\D/g,'').substring(0,4);
-  });
 }
 
 /* ── Reset ── */
@@ -1342,14 +1294,14 @@ function reset() {
   chatState='idle';
   document.getElementById('chatMessages').innerHTML='';
   document.getElementById('chatInputArea').style.display='none';
-  ['fEmail','fCard','fExp','fCvc','fZip'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+
   goTo('landing');
 }
 
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
 document.addEventListener('DOMContentLoaded', function() {
-  setupCards();
+
   // Sticky CTA: show when scrolled past hero on landing page
   var hero = document.querySelector('.hero');
   var sticky = document.getElementById('stickyCta');
